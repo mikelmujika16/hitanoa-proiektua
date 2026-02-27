@@ -1,5 +1,7 @@
 # Hitano Itzultzailea
 
+> **[https://mikelmujika16.github.io/hitanoa-proiektua/](https://mikelmujika16.github.io/hitanoa-proiektua/)**
+
 Proiektu honen helburua **Euskaltzaindiaren 14. araua** (*Adizki alokutiboez, hikako moldea*) PDF formatutik irakurri eta bertako aditz-forma guztiak JSON datu-egitura batera erauztea da, eta web aplikazio bat eskaintzea zukako testua hikara (toka/noka) automatikoki itzultzeko.
 
 ## Zer da?
