@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitano Itzultzailea</title>
+    <style>
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --primary-dark: #1b4332;
+            --accent: #d4a373;
+            --bg: #f8f9fa;
+            --surface: #ffffff;
+            --text: #212529;
+            --text-muted: #6c757d;
+            --border: #dee2e6;
+            --toka-bg: #e8f0fe;
+            --toka-highlight: #1a73e8;
+            --noka-bg: #fce8e6;
+            --noka-highlight: #d93025;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+            --radius: 12px;
+            --transition: 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Header ─────────────────────────────────── */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.3rem;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+
+        /* ── Main ───────────────────────────────────── */
+        main {
+            flex: 1;
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* ── Cards ──────────────────────────────────── */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.25rem;
+        }
+
+        .card-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .card-label .badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        /* ── Input ──────────────────────────────────── */
+        .input-card {
+            border-left: 4px solid var(--primary);
+        }
+
+        .input-card .card-label { color: var(--primary); }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 0.85rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text);
+            resize: vertical;
+            transition: border-color var(--transition);
+            background: var(--bg);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: white;
+        }
+
+        textarea::placeholder {
+            color: #adb5bd;
+        }
+
+        /* ── Output grid ────────────────────────────── */
+        .output-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 640px) {
+            .output-grid { grid-template-columns: 1fr; }
+        }
+
+        .output-card {
+            position: relative;
+        }
+
+        .output-card.toka {
+            border-left: 4px solid var(--toka-highlight);
+        }
+        .output-card.noka {
+            border-left: 4px solid var(--noka-highlight);
+        }
+
+        .output-card.toka .card-label { color: var(--toka-highlight); }
+        .output-card.noka .card-label { color: var(--noka-highlight); }
+
+        .output-card.toka .badge {
+            background: var(--toka-bg);
+            color: var(--toka-highlight);
+        }
+        .output-card.noka .badge {
+            background: var(--noka-bg);
+            color: var(--noka-highlight);
+        }
+
+        .output-text {
+            min-height: 80px;
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .output-card.toka .output-text { background: var(--toka-bg); }
+        .output-card.noka .output-text { background: var(--noka-bg); }
+
+        .output-text .highlight {
+            font-weight: 600;
+            border-radius: 3px;
+            padding: 0.05em 0.15em;
+        }
+
+        .output-card.toka .highlight {
+            color: var(--toka-highlight);
+            background: rgba(26,115,232,0.12);
+        }
+        .output-card.noka .highlight {
+            color: var(--noka-highlight);
+            background: rgba(217,48,37,0.12);
+        }
+
+        .placeholder-text {
+            color: #adb5bd;
+            font-style: italic;
+        }
+
+        /* ── Stats bar ──────────────────────────────── */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .stats .num {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* ── Copy button ────────────────────────────── */
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--bg);
+            color: var(--text);
+            border-color: var(--text-muted);
+        }
+
+        .copy-btn.copied {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* ── Info section ───────────────────────────── */
+        .info-section {
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .info-section details {
+            display: inline-block;
+            text-align: left;
+            max-width: 600px;
+        }
+
+        .info-section summary {
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+        }
+
+        .info-section .info-content {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            padding: 0.75rem 0;
+        }
+
+        .info-section .info-content code {
+            background: var(--bg);
+            padding: 0.1rem 0.35rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        /* ── Loading ────────────────────────────────── */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .loading .spinner {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 0.75rem;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Footer ─────────────────────────────────── */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Hitano Itzultzailea</h1>
+    <p>Zukako testua hikara itzuli — toka eta noka</p>
+</header>
+
+<main id="app">
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div>Aditz-formak kargatzen...</div>
+    </div>
+</main>
+
+<footer>
+    Euskaltzaindiaren 14. arauan oinarrituta &middot; <a href="https://www.euskaltzaindia.eus" target="_blank">Euskaltzaindia</a>
+</footer>
+
+<script>
+(function () {
+    'use strict';
+
+    /* ================================================================
+       1. DATUAK KARGATU
+       ================================================================ */
+
+    const DATA_URL = 'json/aditzak_hika.json';
+
+    /**
+     * JSON-tik lookup-mapak sortu.
+     * zukaToToka: Map<lowercase_zuka, {form: toka_string, parts: [alternatives]}>
+     * zukaToNoka: idem noka-rentzat
+     *
+     * Koma bidez bereizitako alternatibak (zuka: "a, b" / toka: "c, d")
+     * banan-banan mapeatu: a→c, b→d
+     */
+    function buildLookup(data) {
+        const toka = new Map();
+        const noka = new Map();
+
+        for (const entry of data) {
+            const zukas = entry.zuka.split(',').map(s => s.trim()).filter(Boolean);
+            const tokas = entry.hika_toka.split(',').map(s => s.trim()).filter(Boolean);
+            const nokas = entry.hika_noka.split(',').map(s => s.trim()).filter(Boolean);
+
+            for (let i = 0; i < zukas.length; i++) {
+                const key = zukas[i].toLowerCase();
+                const tVal = tokas[i] || tokas[0] || '';
+                const nVal = nokas[i] || nokas[0] || '';
+
+                if (!toka.has(key)) toka.set(key, tVal);
+                if (!noka.has(key)) noka.set(key, nVal);
+            }
+        }
+
+        return { toka, noka };
+    }
+
+    /* ================================================================
+       2. ITZULPENA
+       ================================================================ */
+
+    /**
+     * Testua tokenizatu: hitzak eta ez-hitzak (puntuazioa, espazioak) banatu.
+     * Token bakoitza: { text, isWord }
+     */
+    function tokenize(text) {
+        const tokens = [];
+        const re = /([a-zA-ZñÑçÇáéíóúàèìòùäëïöüâêîôû]+)|([^a-zA-ZñÑçÇáéíóúàèìòùäëïöüâêîôû]+)/g;
+        let m;
+        while ((m = re.exec(text)) !== null) {
+            tokens.push({
+                text: m[0],
+                isWord: !!m[1]
+            });
+        }
+        return tokens;
+    }
+
+    /**
+     * Kasu-patroia transferitu: jatorrizko hitzaren maiuskula/minuskula
+     * patroia itzulpenari aplikatu.
+     */
+    function transferCase(original, translated) {
+        if (!original || !translated) return translated;
+
+        // Guztia maiuskula
+        if (original === original.toUpperCase() && original !== original.toLowerCase()) {
+            return translated.toUpperCase();
+        }
+        // Lehen letra maiuskula
+        if (original[0] === original[0].toUpperCase() && original[0] !== original[0].toLowerCase()) {
+            return translated[0].toUpperCase() + translated.slice(1);
+        }
+        return translated;
+    }
+
+    /**
+     * Testua itzuli.
+     * Itzultzen du: { html: string (highlight markupekin), plain: string, count: number }
+     */
+    function translate(text, lookupMap, highlightClass) {
+        const tokens = tokenize(text);
+        let html = '';
+        let plain = '';
+        let count = 0;
+
+        for (const token of tokens) {
+            if (!token.isWord) {
+                const escaped = escapeHtml(token.text);
+                html += escaped;
+                plain += token.text;
+                continue;
+            }
+
+            const key = token.text.toLowerCase();
+            const mapped = lookupMap.get(key);
+
+            if (mapped) {
+                const translated = transferCase(token.text, mapped);
+                html += `<span class="highlight">${escapeHtml(translated)}</span>`;
+                plain += translated;
+                count++;
+            } else {
+                html += escapeHtml(token.text);
+                plain += token.text;
+            }
+        }
+
+        return { html, plain, count };
+    }
+
+    function escapeHtml(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    /* ================================================================
+       3. UI
+       ================================================================ */
+
+    function renderApp() {
+        return `
+            <div class="card input-card">
+                <div class="card-label">
+                    Sarrera
+                    <span class="badge" style="background:rgba(45,106,79,0.1);color:var(--primary)">Zuka</span>
+                </div>
+                <textarea id="input"
+                    placeholder="Idatzi zukako testua hemen... Adibidez: &quot;Nola zaude? Zer egin duzu gaur?&quot;"
+                    spellcheck="false"
+                    autofocus></textarea>
+            </div>
+
+            <div class="output-grid">
+                <div class="card output-card toka">
+                    <div class="card-label">
+                        Irteera
+                        <span class="badge">Toka ♂</span>
+                    </div>
+                    <button class="copy-btn" data-target="toka" title="Kopiatu">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Kopiatu
+                    </button>
+                    <div class="output-text" id="output-toka">
+                        <span class="placeholder-text">Hemen tokako itzulpena agertuko da...</span>
+                    </div>
+                </div>
+
+                <div class="card output-card noka">
+                    <div class="card-label">
+                        Irteera
+                        <span class="badge">Noka ♀</span>
+                    </div>
+                    <button class="copy-btn" data-target="noka" title="Kopiatu">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Kopiatu
+                    </button>
+                    <div class="output-text" id="output-noka">
+                        <span class="placeholder-text">Hemen nokako itzulpena agertuko da...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats" id="stats" style="display:none">
+                <span>Ordezkatuak: <span class="num" id="stat-replaced">0</span></span>
+                <span>Mapako formak: <span class="num" id="stat-forms">0</span></span>
+            </div>
+
+            <div class="info-section">
+                <details>
+                    <summary>Nola funtzionatzen du?</summary>
+                    <div class="info-content">
+                        Tresna honek Euskaltzaindiaren 14. arautik (<em>Adizki alokutiboez, hikako moldea</em>)
+                        erauzi diren <strong>1560 aditz-forma</strong> erabiltzen ditu.
+                        Sarrerako testuaren hitz bakoitza zukako aditz-formen mapan bilatzen da eta,
+                        aurkituz gero, dagokion hikako formarekin ordezkatzen da (toka ala noka).
+                        <br><br>
+                        <strong>Mugak:</strong> Hitz-mailako ordezkapena da; ez du analisi morfologikorik egiten.
+                        Zuka eta hika berdinak diren formak (adib. <code>dut</code>) ez dira aldatzen.
+                        Testuinguru gramatikala ez du kontuan hartzen.
+                    </div>
+                </details>
+            </div>
+        `;
+    }
+
+    /* ================================================================
+       4. HASIERATU
+       ================================================================ */
+
+    async function init() {
+        const app = document.getElementById('app');
+
+        let data;
+        try {
+            const resp = await fetch(DATA_URL);
+            if (!resp.ok) throw new Error(resp.statusText);
+            data = await resp.json();
+        } catch (err) {
+            app.innerHTML = `
+                <div class="card" style="text-align:center;padding:2rem;color:#d93025">
+                    <strong>Errorea datuak kargatzean</strong><br>
+                    <span style="font-size:0.85rem;color:var(--text-muted)">
+                        Ziurtatu <code>json/aditzak_hika.json</code> fitxategia eskuragarri dagoela.<br>
+                        HTTP zerbitzari bat behar da (adib. <code>python -m http.server</code>).
+                    </span>
+                </div>`;
+            return;
+        }
+
+        const lookup = buildLookup(data);
+        const totalForms = lookup.toka.size;
+
+        // UI marraztu
+        app.innerHTML = renderApp();
+
+        const input = document.getElementById('input');
+        const outToka = document.getElementById('output-toka');
+        const outNoka = document.getElementById('output-noka');
+        const stats = document.getElementById('stats');
+        const statReplaced = document.getElementById('stat-replaced');
+        const statForms = document.getElementById('stat-forms');
+
+        statForms.textContent = totalForms;
+
+        // Debounced itzulpena
+        let timer;
+        input.addEventListener('input', () => {
+            clearTimeout(timer);
+            timer = setTimeout(doTranslate, 80);
+        });
+
+        function doTranslate() {
+            const text = input.value.trim();
+
+            if (!text) {
+                outToka.innerHTML = '<span class="placeholder-text">Hemen tokako itzulpena agertuko da...</span>';
+                outNoka.innerHTML = '<span class="placeholder-text">Hemen nokako itzulpena agertuko da...</span>';
+                stats.style.display = 'none';
+                return;
+            }
+
+            const resToka = translate(text, lookup.toka, 'highlight');
+            const resNoka = translate(text, lookup.noka, 'highlight');
+
+            outToka.innerHTML = resToka.html;
+            outNoka.innerHTML = resNoka.html;
+
+            statReplaced.textContent = Math.max(resToka.count, resNoka.count);
+            stats.style.display = 'flex';
+        }
+
+        // Kopiatu botoiak
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const target = btn.dataset.target;
+                const el = document.getElementById('output-' + target);
+                const plainText = el.innerText;
+                if (!plainText || el.querySelector('.placeholder-text')) return;
+
+                try {
+                    await navigator.clipboard.writeText(plainText);
+                    btn.classList.add('copied');
+                    const original = btn.innerHTML;
+                    btn.innerHTML = btn.innerHTML.replace('Kopiatu', 'Kopiatuta!');
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        btn.innerHTML = original;
+                    }, 1500);
+                } catch {
+                    // fallback
+                }
+            });
+        });
+    }
+
+    // Abiarazi
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
+</body>
+</html>
