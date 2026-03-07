@@ -9,7 +9,7 @@ import stanza
 import os
 
 # ---------------------------------------------------------------------------
-# 'zu' izenordainaren mapaketa — stanza-k PRON gisa identifikatutako formak
+# 'zu' izenordainaren mapaketa
 # ---------------------------------------------------------------------------
 MAPAKETA_ZU_HI = {
     "zu":         "hi",
@@ -23,6 +23,11 @@ MAPAKETA_ZU_HI = {
     "zuregandik": "hiregandik",
     "zuregana":   "hiregana",
 }
+
+# Stanza-k inoiz PRON gisa sailkatzen ez dituen formak, baina anbiguoak ez direnak:
+# zutaz (ADV gisa), zuregandik (ADV gisa), zuregana (PROPN gisa)
+# Hauek POS-aren egiaztapena saltatu eta zuzenean ordezkatzen dira.
+BETI_ORDEZKATU = {"zutaz", "zuregandik", "zuregana"}
 
 # ---------------------------------------------------------------------------
 # Flask aplikazioa
@@ -59,10 +64,14 @@ def itzuli_izenordainak():
 
     for esaldia in dok.sentences:
         for hitza in esaldia.words:
+            forma = hitza.text.lower()
+            # Bide nagusia: stanza-k PRON+lemma=zu gisa sailkatutakoak
             if hitza.lemma == 'zu' and hitza.upos == 'PRON':
-                forma = hitza.text.lower()
                 if forma in MAPAKETA_ZU_HI:
                     ordezkapnak[forma] = MAPAKETA_ZU_HI[forma]
+            # Bigarren bidea: stanza-k oker sailkatzen dituen forma anbiguogabeak
+            elif forma in BETI_ORDEZKATU:
+                ordezkapnak[forma] = MAPAKETA_ZU_HI[forma]
 
     return jsonify({'ordezkapnak': ordezkapnak})
 

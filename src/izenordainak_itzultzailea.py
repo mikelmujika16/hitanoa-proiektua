@@ -15,6 +15,10 @@ mapaketa_zu_hi = {
     "zuregana":   "hiregana",    # Bizi-adlatiboa animatua (NOREGANA)
 }
 
+# Stanza-k inoiz PRON gisa sailkatzen ez dituen formak, baina anbiguoak ez direnak:
+# zutaz (ADV gisa), zuregandik (ADV gisa), zuregana (PROPN gisa)
+beti_ordezkatu = {"zutaz", "zuregandik", "zuregana"}
+
 # 1. Modeloa deskargatu (lehen aldiz exekutatzen bada soilik jaitsi behar da)
 stanza.download('eu')
 
@@ -29,20 +33,21 @@ def izenordainak_itzuli_zu_hi(testua):
     for esaldia in dok.sentences:
         for hitza in esaldia.words:
             hitz_unekoa = hitza.text
+            forma = hitza.text.lower()
 
-            # Lema 'zu' den eta izenordaina den egiaztatzen dugu
-            # Oharra: stanza-ren euskal modelak ez du 'Case' ezaugarria itzultzen,
-            # beraz hitz-forma zuzenean erabiltzen dugu mapaketan bilatzeko
+            # Bide nagusia: stanza-k PRON+lemma=zu gisa sailkatutakoak
+            # (zuk, zure, zurekin, zuretzat, zuregan...)
             if hitza.lemma == "zu" and hitza.upos == "PRON":
-                forma = hitza.text.lower()
-
-                # Hitz-forma gure mapaketan badago, ordezkapena egiten dugu
                 if forma in mapaketa_zu_hi:
                     hitz_unekoa = mapaketa_zu_hi[forma]
+            # Bigarren bidea: stanza-k oker sailkatzen dituen forma anbiguogabeak
+            # zutaz→ADV, zuregandik→ADV, zuregana→PROPN
+            elif forma in beti_ordezkatu:
+                hitz_unekoa = mapaketa_zu_hi[forma]
 
-                    # Jatorrizkoak maiuskula bazuen, mantendu
-                    if hitza.text.istitle():
-                        hitz_unekoa = hitz_unekoa.capitalize()
+            # Jatorrizkoak maiuskula bazuen, mantendu
+            if hitz_unekoa != hitza.text and hitza.text.istitle():
+                hitz_unekoa = hitz_unekoa.capitalize()
 
             hitz_itzuliak.append(hitz_unekoa)
 
@@ -57,6 +62,6 @@ emaitza = izenordainak_itzuli_zu_hi(probako_esaldia)
 
 print(f"Jatorrizkoa: {probako_esaldia}")
 print(f"Hika:        {emaitza}")
-# Espero den emaitza: Ni hirekin joango naiz, hiri opari hau hiretzat delako.
+# Espero den emaitza: Ni hirekin joango naiz, opari zuri hau hiretzat delako.
 # Oharra: 'zuri' hitzak anbiguotasuna du euskaraz ('zuri' adjektiboa = zuria kolorea),
 # eta stanza-k 'ADJ' gisa sailkatzen du testuinguru honetan, ez PRON gisa.
