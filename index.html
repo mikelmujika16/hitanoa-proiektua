@@ -262,6 +262,59 @@
             border-color: var(--primary);
         }
 
+        /* ── Stanza debug taula ──────────────────────── */
+        .stanza-debug {
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+        }
+
+        .stanza-debug summary {
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.83rem;
+            padding: 0.3rem 0;
+            user-select: none;
+        }
+
+        .stanza-debug table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        .stanza-debug th {
+            background: var(--bg);
+            color: var(--text-muted);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.35rem 0.6rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .stanza-debug td {
+            padding: 0.3rem 0.6rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .stanza-debug tr.pron-hit td {
+            background: rgba(45,106,79,0.07);
+        }
+
+        .stanza-debug td.upos-tag {
+            font-weight: 700;
+        }
+
+        .stanza-debug td.upos-PRON  { color: #2d6a4f; }
+        .stanza-debug td.upos-VERB  { color: #1565c0; }
+        .stanza-debug td.upos-AUX   { color: #6a1fb5; }
+        .stanza-debug td.upos-NOUN  { color: #b5460f; }
+        .stanza-debug td.upos-ADJ   { color: #9c6b00; }
+        .stanza-debug td.upos-ADV   { color: #555; }
+        .stanza-debug td.upos-PUNCT { color: #bbb; }
+
         /* ── Info section ───────────────────────────── */
         .info-section {
             text-align: center;
@@ -525,6 +578,14 @@
                 <span>Mapako formak: <span class="num" id="stat-forms">0</span></span>
             </div>
 
+            <details class="stanza-debug" id="stanza-debug" style="display:none">
+                <summary>Stanza analisia (token guztiak)</summary>
+                <table>
+                    <thead><tr><th>Forma</th><th>Lemma</th><th>UPOS</th><th>Ezaugarriak</th></tr></thead>
+                    <tbody id="stanza-debug-body"></tbody>
+                </table>
+            </details>
+
             <div class="info-section">
                 <details>
                     <summary>Nola funtzionatzen du?</summary>
@@ -583,6 +644,8 @@
         const stats = document.getElementById('stats');
         const statReplaced = document.getElementById('stat-replaced');
         const statForms = document.getElementById('stat-forms');
+        const stanzaDebug = document.getElementById('stanza-debug');
+        const stanzaDebugBody = document.getElementById('stanza-debug-body');
 
         statForms.textContent = totalForms;
 
@@ -600,11 +663,13 @@
                 outToka.innerHTML = '<span class="placeholder-text">Hemen tokako itzulpena agertuko da...</span>';
                 outNoka.innerHTML = '<span class="placeholder-text">Hemen nokako itzulpena agertuko da...</span>';
                 stats.style.display = 'none';
+                stanzaDebug.style.display = 'none';
                 return;
             }
 
             // Izenordainak stanza API-tik eskatu (zerbitzaria eskuragarri ez badago, hutsik)
             let pronounMap = new Map();
+            let tokenak = [];
             try {
                 const resp = await fetch('/api/izenordainak', {
                     method: 'POST',
@@ -614,6 +679,7 @@
                 if (resp.ok) {
                     const data = await resp.json();
                     pronounMap = new Map(Object.entries(data.ordezkapnak));
+                    tokenak = data.tokenak || [];
                 }
             } catch (_) {
                 // Zerbitzaria ez dago martxan — izenordainei ez zaie eragingo
@@ -627,6 +693,23 @@
 
             statReplaced.textContent = Math.max(resToka.count, resNoka.count);
             stats.style.display = 'flex';
+
+            // Stanza debug taula errendatu
+            if (tokenak.length) {
+                stanzaDebugBody.innerHTML = tokenak.map(t => {
+                    const isHit = pronounMap.has(t.forma.toLowerCase());
+                    const rowClass = isHit ? ' class="pron-hit"' : '';
+                    return `<tr${rowClass}>
+                        <td>${escapeHtml(t.forma)}</td>
+                        <td>${escapeHtml(t.lemma)}</td>
+                        <td class="upos-tag upos-${escapeHtml(t.upos)}">${escapeHtml(t.upos)}</td>
+                        <td>${escapeHtml(t.feats)}</td>
+                    </tr>`;
+                }).join('');
+                stanzaDebug.style.display = '';
+            } else {
+                stanzaDebug.style.display = 'none';
+            }
         }
 
         // Kopiatu botoiak

@@ -53,14 +53,15 @@ def itzuli_izenordainak():
     'zu'-ren formak 'hi'-rako itzulpenekin itzuli.
 
     Eskaera: { "testua": "..." }
-    Erantzuna: { "ordezkapnak": { "zurekin": "hirekin", ... } }
+    Erantzuna: { "ordezkapnak": { "zurekin": "hirekin", ... }, "tokenak": [{...}, ...] }
     """
     testua = (request.get_json(force=True) or {}).get('testua', '')
     if not testua:
-        return jsonify({'ordezkapnak': {}})
+        return jsonify({'ordezkapnak': {}, 'tokenak': []})
 
     dok = nlp(testua)
     ordezkapnak = {}
+    tokenak = []
 
     for esaldia in dok.sentences:
         for hitza in esaldia.words:
@@ -73,7 +74,14 @@ def itzuli_izenordainak():
             elif forma in BETI_ORDEZKATU:
                 ordezkapnak[forma] = MAPAKETA_ZU_HI[forma]
 
-    return jsonify({'ordezkapnak': ordezkapnak})
+            tokenak.append({
+                'forma': hitza.text,
+                'lemma': hitza.lemma,
+                'upos':  hitza.upos,
+                'feats': hitza.feats or ''
+            })
+
+    return jsonify({'ordezkapnak': ordezkapnak, 'tokenak': tokenak})
 
 
 if __name__ == '__main__':
