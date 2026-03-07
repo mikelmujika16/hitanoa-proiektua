@@ -262,59 +262,6 @@
             border-color: var(--primary);
         }
 
-        /* ── Stanza debug taula ──────────────────────── */
-        .stanza-debug {
-            margin-top: 0.5rem;
-            font-size: 0.82rem;
-        }
-
-        .stanza-debug summary {
-            cursor: pointer;
-            color: var(--text-muted);
-            font-size: 0.83rem;
-            padding: 0.3rem 0;
-            user-select: none;
-        }
-
-        .stanza-debug table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 0.5rem;
-            font-family: monospace;
-            font-size: 0.8rem;
-        }
-
-        .stanza-debug th {
-            background: var(--bg);
-            color: var(--text-muted);
-            font-weight: 600;
-            text-align: left;
-            padding: 0.35rem 0.6rem;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .stanza-debug td {
-            padding: 0.3rem 0.6rem;
-            border-bottom: 1px solid var(--border);
-            color: var(--text);
-        }
-
-        .stanza-debug tr.pron-hit td {
-            background: rgba(45,106,79,0.07);
-        }
-
-        .stanza-debug td.upos-tag {
-            font-weight: 700;
-        }
-
-        .stanza-debug td.upos-PRON  { color: #2d6a4f; }
-        .stanza-debug td.upos-VERB  { color: #1565c0; }
-        .stanza-debug td.upos-AUX   { color: #6a1fb5; }
-        .stanza-debug td.upos-NOUN  { color: #b5460f; }
-        .stanza-debug td.upos-ADJ   { color: #9c6b00; }
-        .stanza-debug td.upos-ADV   { color: #555; }
-        .stanza-debug td.upos-PUNCT { color: #bbb; }
-
         /* ── Info section ───────────────────────────── */
         .info-section {
             text-align: center;
@@ -415,6 +362,20 @@
         'json/aditzak_zu_to_hi.json'
     ];
 
+    // 'zu' izenordainaren mapaketa — hitz-maila, forma osoak
+    const IZENORDAIN_MAPA = new Map([
+        ['zu',         'hi'],
+        ['zuk',        'hik'],
+        ['zuri',       'hiri'],
+        ['zure',       'hire'],
+        ['zurekin',    'hirekin'],
+        ['zuretzat',   'hiretzat'],
+        ['zutaz',      'hitaz'],
+        ['zuregan',    'hiregan'],
+        ['zuregandik', 'hiregandik'],
+        ['zuregana',   'hiregana'],
+    ]);
+
     /**
      * JSON-tik lookup-mapak sortu.
      * zukaToToka: Map<lowercase_zuka, {form: toka_string, parts: [alternatives]}>
@@ -443,6 +404,16 @@
         }
 
         return { toka, noka };
+    }
+
+    /**
+     * Izenordain-mapa aditz-lookup-ean gehitu (aditz-forma batek lehentasuna du).
+     */
+    function mergePronouns(lookup, pronounMap) {
+        for (const [zu, hi] of pronounMap) {
+            if (!lookup.toka.has(zu)) lookup.toka.set(zu, hi);
+            if (!lookup.noka.has(zu)) lookup.noka.set(zu, hi);
+        }
     }
 
     /* ================================================================
@@ -487,10 +458,8 @@
     /**
      * Testua itzuli.
      * Itzultzen du: { html: string (highlight markupekin), plain: string, count: number }
-     * lookupMap: aditz-formak (aditz_alokutiboak + zu_to_hi JSON-etik)
-     * pronounMap: izenordainak (stanza API-tik, aukerakoa)
      */
-    function translate(text, lookupMap, pronounMap = new Map()) {
+    function translate(text, lookupMap) {
         const tokens = tokenize(text);
         let html = '';
         let plain = '';
@@ -505,8 +474,7 @@
             }
 
             const key = token.text.toLowerCase();
-            // Aditz-lookup lehentasuna du; gero izenordain-mapa
-            const mapped = lookupMap.get(key) ?? pronounMap.get(key);
+            const mapped = lookupMap.get(key);
 
             if (mapped) {
                 const translated = transferCase(token.text, mapped);
@@ -578,14 +546,6 @@
                 <span>Mapako formak: <span class="num" id="stat-forms">0</span></span>
             </div>
 
-            <details class="stanza-debug" id="stanza-debug" style="display:none">
-                <summary>Stanza analisia (token guztiak)</summary>
-                <table>
-                    <thead><tr><th>Forma</th><th>Lemma</th><th>UPOS</th><th>Ezaugarriak</th></tr></thead>
-                    <tbody id="stanza-debug-body"></tbody>
-                </table>
-            </details>
-
             <div class="info-section">
                 <details>
                     <summary>Nola funtzionatzen du?</summary>
@@ -633,6 +593,7 @@
         }
 
         const lookup = buildLookup(allData);
+        mergePronouns(lookup, IZENORDAIN_MAPA);
         const totalForms = lookup.toka.size;
 
         // UI marraztu
@@ -644,8 +605,6 @@
         const stats = document.getElementById('stats');
         const statReplaced = document.getElementById('stat-replaced');
         const statForms = document.getElementById('stat-forms');
-        const stanzaDebug = document.getElementById('stanza-debug');
-        const stanzaDebugBody = document.getElementById('stanza-debug-body');
 
         statForms.textContent = totalForms;
 
@@ -656,60 +615,25 @@
             timer = setTimeout(doTranslate, 80);
         });
 
-        async function doTranslate() {
+        function doTranslate() {
             const text = input.value.trim();
 
             if (!text) {
                 outToka.innerHTML = '<span class="placeholder-text">Hemen tokako itzulpena agertuko da...</span>';
                 outNoka.innerHTML = '<span class="placeholder-text">Hemen nokako itzulpena agertuko da...</span>';
                 stats.style.display = 'none';
-                stanzaDebug.style.display = 'none';
                 return;
             }
 
-            // Izenordainak stanza API-tik eskatu (zerbitzaria eskuragarri ez badago, hutsik)
-            let pronounMap = new Map();
-            let tokenak = [];
-            try {
-                const resp = await fetch('/api/izenordainak', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ testua: text })
-                });
-                if (resp.ok) {
-                    const data = await resp.json();
-                    pronounMap = new Map(Object.entries(data.ordezkapnak));
-                    tokenak = data.tokenak || [];
-                }
-            } catch (_) {
-                // Zerbitzaria ez dago martxan — izenordainei ez zaie eragingo
-            }
-
-            const resToka = translate(text, lookup.toka, pronounMap);
-            const resNoka = translate(text, lookup.noka, pronounMap);
+            const resToka = translate(text, lookup.toka);
+            const resNoka = translate(text, lookup.noka);
 
             outToka.innerHTML = resToka.html;
             outNoka.innerHTML = resNoka.html;
 
             statReplaced.textContent = Math.max(resToka.count, resNoka.count);
             stats.style.display = 'flex';
-
-            // Stanza debug taula errendatu
-            if (tokenak.length) {
-                stanzaDebugBody.innerHTML = tokenak.map(t => {
-                    const isHit = pronounMap.has(t.forma.toLowerCase());
-                    const rowClass = isHit ? ' class="pron-hit"' : '';
-                    return `<tr${rowClass}>
-                        <td>${escapeHtml(t.forma)}</td>
-                        <td>${escapeHtml(t.lemma)}</td>
-                        <td class="upos-tag upos-${escapeHtml(t.upos)}">${escapeHtml(t.upos)}</td>
-                        <td>${escapeHtml(t.feats)}</td>
-                    </tr>`;
-                }).join('');
-                stanzaDebug.style.display = '';
-            } else {
-                stanzaDebug.style.display = 'none';
-            }
+        }
         }
 
         // Kopiatu botoiak

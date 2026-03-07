@@ -1,4 +1,4 @@
-import stanza
+import re
 
 # 'zu' izenordainaren forma guztien mapaketa 'hi'-rako
 # Giltza: hitz-forma (minuskulaz); Balioa: hika forma
@@ -15,53 +15,33 @@ mapaketa_zu_hi = {
     "zuregana":   "hiregana",    # Bizi-adlatiboa animatua (NOREGANA)
 }
 
-# Stanza-k inoiz PRON gisa sailkatzen ez dituen formak, baina anbiguoak ez direnak:
-# zutaz (ADV gisa), zuregandik (ADV gisa), zuregana (PROPN gisa)
-beti_ordezkatu = {"zutaz", "zuregandik", "zuregana"}
-
-# 1. Modeloa deskargatu (lehen aldiz exekutatzen bada soilik jaitsi behar da)
-stanza.download('eu')
-
-# 2. Pipeline-a hasieratu (tokenizazioa, POS eta lematizazioa)
-nlp = stanza.Pipeline('eu', processors='tokenize,pos,lemma', download_method=None)
-
 
 def izenordainak_itzuli_zu_hi(testua):
-    dok = nlp(testua)
-    hitz_itzuliak = []
+    def ordezkatu(match):
+        hitza = match.group(0)
+        itzulpena = mapaketa_zu_hi.get(hitza.lower())
+        if itzulpena is None:
+            return hitza
+        # Maiuskula-patroia mantendu
+        if hitza.isupper():
+            return itzulpena.upper()
+        if hitza.istitle():
+            return itzulpena.capitalize()
+        return itzulpena
 
-    for esaldia in dok.sentences:
-        for hitza in esaldia.words:
-            hitz_unekoa = hitza.text
-            forma = hitza.text.lower()
-
-            # Bide nagusia: stanza-k PRON+lemma=zu gisa sailkatutakoak
-            # (zuk, zure, zurekin, zuretzat, zuregan...)
-            if hitza.lemma == "zu" and hitza.upos == "PRON":
-                if forma in mapaketa_zu_hi:
-                    hitz_unekoa = mapaketa_zu_hi[forma]
-            # Bigarren bidea: stanza-k oker sailkatzen dituen forma anbiguogabeak
-            # zutaz→ADV, zuregandik→ADV, zuregana→PROPN
-            elif forma in beti_ordezkatu:
-                hitz_unekoa = mapaketa_zu_hi[forma]
-
-            # Jatorrizkoak maiuskula bazuen, mantendu
-            if hitz_unekoa != hitza.text and hitza.text.istitle():
-                hitz_unekoa = hitz_unekoa.capitalize()
-
-            hitz_itzuliak.append(hitz_unekoa)
-
-    # Esaldia berreraiki (puntuazio-zeinuen tarteak garbitu gabe oraingoz)
-    azken_testua = " ".join(hitz_itzuliak)
-    return azken_testua
+    # Hitzen mugak errespetatu (adib. 'zureak' ez ordezkatzeko)
+    eredua = r'\b(' + '|'.join(re.escape(k) for k in mapaketa_zu_hi) + r')\b'
+    return re.sub(eredua, ordezkatu, testua, flags=re.IGNORECASE)
 
 
 # --- Proba ---
-probako_esaldia = "Ni zurekin joango naiz, opari zuri hau zuretzat delako."
-emaitza = izenordainak_itzuli_zu_hi(probako_esaldia)
-
-print(f"Jatorrizkoa: {probako_esaldia}")
-print(f"Hika:        {emaitza}")
-# Espero den emaitza: Ni hirekin joango naiz, opari zuri hau hiretzat delako.
-# Oharra: 'zuri' hitzak anbiguotasuna du euskaraz ('zuri' adjektiboa = zuria kolorea),
-# eta stanza-k 'ADJ' gisa sailkatzen du testuinguru honetan, ez PRON gisa.
+probako_esaldiak = [
+    "Ni zurekin joango naiz, opari zuri hau zuretzat delako.",
+    "Zuk badakizu egia.",
+    "Zutaz hitz egiten dute.",
+    "Zuregana noa eta zuregandik itzuliko naiz.",
+]
+for esaldia in probako_esaldiak:
+    print(f"Jat: {esaldia}")
+    print(f"Hika: {izenordainak_itzuli_zu_hi(esaldia)}")
+    print()
