@@ -20,7 +20,7 @@ hitanoa-proiektua/
 ├── src/
 │   └── aditzak_atera.py   # Erauzketa-scripta (Python)
 ├── json/
-│   └── aditzak_hika.json  # Irteerako JSON fitxategia (1560 sarrera)
+│   └── aditz_alokutiboak.json  # Irteerako JSON fitxategia (1560 sarrera)
 ├── docs/
 │   └── Araua_0014.pdf     # Euskaltzaindiaren 14. araua (61 orrialde)
 └── README.md
@@ -128,7 +128,7 @@ pip install pdfplumber
 python src/aditzak_atera.py
 ```
 
-Scriptak `docs/Araua_0014.pdf` irakurriko du eta `json/aditzak_hika.json` fitxategia sortuko du.
+Scriptak `docs/Araua_0014.pdf` irakurriko du eta `json/aditz_alokutiboak.json` fitxategia sortuko du.
 
 ### Web aplikazioa (SPA)
 

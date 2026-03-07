@@ -241,6 +241,6 @@ import os
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 archivo_pdf = os.path.join(PROJECT_ROOT, "docs", "Araua_0014.pdf")
-archivo_json = os.path.join(PROJECT_ROOT, "json", "aditzak_hika.json")
+archivo_json = os.path.join(PROJECT_ROOT, "json", "aditz_alokutiboak.json")
 
 extract_verbs(archivo_pdf, archivo_json)
