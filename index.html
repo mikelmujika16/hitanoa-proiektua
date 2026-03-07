@@ -356,7 +356,10 @@
        1. DATUAK KARGATU
        ================================================================ */
 
-    const DATA_URL = 'json/aditzak_hika.json';
+    const DATA_URLS = [
+        'json/aditzak_hika.json',
+        'json/aditzak_bigarren_argumentala.json'
+    ];
 
     /**
      * JSON-tik lookup-mapak sortu.
@@ -522,8 +525,9 @@
                 <details>
                     <summary>Nola funtzionatzen du?</summary>
                     <div class="info-content">
-                        Tresna honek Euskaltzaindiaren 14. arautik (<em>Adizki alokutiboez, hikako moldea</em>)
-                        erauzi diren <strong>1560 aditz-forma</strong> erabiltzen ditu.
+                        Tresna honek bi iturri erabiltzen ditu: Euskaltzaindiaren 14. arautik
+                        (<em>Adizki alokutiboez, hikako moldea</em>) erauzi diren <strong>1560 aditz-forma</strong>,
+                        eta bigarren argumentaleko (hizketakidea ez den hartzailea) adizki osagarriak.
                         Sarrerako testuaren hitz bakoitza zukako aditz-formen mapan bilatzen da eta,
                         aurkituz gero, dagokion hikako formarekin ordezkatzen da (toka ala noka).
                         <br><br>
@@ -543,24 +547,27 @@
     async function init() {
         const app = document.getElementById('app');
 
-        let data;
+        let allData = [];
         try {
-            const resp = await fetch(DATA_URL);
-            if (!resp.ok) throw new Error(resp.statusText);
-            data = await resp.json();
+            const responses = await Promise.all(DATA_URLS.map(url => fetch(url)));
+            for (const resp of responses) {
+                if (!resp.ok) throw new Error(resp.statusText);
+                const data = await resp.json();
+                allData = allData.concat(data);
+            }
         } catch (err) {
             app.innerHTML = `
                 <div class="card" style="text-align:center;padding:2rem;color:#d93025">
                     <strong>Errorea datuak kargatzean</strong><br>
                     <span style="font-size:0.85rem;color:var(--text-muted)">
-                        Ziurtatu <code>json/aditzak_hika.json</code> fitxategia eskuragarri dagoela.<br>
+                        Ziurtatu JSON fitxategiak <code>json/</code> karpetan eskuragarri daudela.<br>
                         HTTP zerbitzari bat behar da (adib. <code>python -m http.server</code>).
                     </span>
                 </div>`;
             return;
         }
 
-        const lookup = buildLookup(data);
+        const lookup = buildLookup(allData);
         const totalForms = lookup.toka.size;
 
         // UI marraztu

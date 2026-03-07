@@ -1,0 +1,723 @@
+[
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "ORAINALDIA",
+        "zuka": "zara",
+        "hika_toka": "haiz",
+        "hika_noka": "haiz",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "LEHENALDIA",
+        "zuka": "zinen",
+        "hika_toka": "hintzen",
+        "hika_noka": "hintzen",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "ORAINALDIA",
+        "zuka": "nauzu",
+        "hika_toka": "nauk",
+        "hika_noka": "naun",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "ORAINALDIA",
+        "zuka": "duzu",
+        "hika_toka": "duk",
+        "hika_noka": "dun",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "ORAINALDIA",
+        "zuka": "gaituzu",
+        "hika_toka": "gaituk",
+        "hika_noka": "gaitun",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "ORAINALDIA",
+        "zuka": "dituzu",
+        "hika_toka": "dituk",
+        "hika_noka": "ditun",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "LEHENALDIA",
+        "zuka": "ninduzun",
+        "hika_toka": "ninduan",
+        "hika_noka": "nindunan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenuen",
+        "hika_toka": "huan",
+        "hika_noka": "hunan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "LEHENALDIA",
+        "zuka": "gintuzun",
+        "hika_toka": "gintuan",
+        "hika_noka": "gintunan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenituen",
+        "hika_toka": "hituan",
+        "hika_noka": "hitunan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "ORAINALDIA",
+        "zuka": "natzaizu",
+        "hika_toka": "natzaik",
+        "hika_noka": "natzain",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "ORAINALDIA",
+        "zuka": "zaizu",
+        "hika_toka": "zaik",
+        "hika_noka": "zain",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "ORAINALDIA",
+        "zuka": "gatzaizkizu",
+        "hika_toka": "gatzaizkik",
+        "hika_noka": "gatzaizkin",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "ORAINALDIA",
+        "zuka": "zaizkizu",
+        "hika_toka": "zaizkik",
+        "hika_noka": "zaizkin",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "LEHENALDIA",
+        "zuka": "nintzaizun",
+        "hika_toka": "nintzaian",
+        "hika_noka": "nintzainan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zitzaizun",
+        "hika_toka": "zitzaian",
+        "hika_noka": "zitzainan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zitzaizkizun",
+        "hika_toka": "zitzaizkian",
+        "hika_noka": "zitzaizkinan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork)",
+        "aldia": "ORAINALDIA",
+        "zuka": "didazu",
+        "hika_toka": "didak",
+        "hika_noka": "didan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork)",
+        "aldia": "ORAINALDIA",
+        "zuka": "diozu",
+        "hika_toka": "diok",
+        "hika_noka": "dion",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork)",
+        "aldia": "ORAINALDIA",
+        "zuka": "diguzu",
+        "hika_toka": "diguk",
+        "hika_noka": "digun",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork)",
+        "aldia": "ORAINALDIA",
+        "zuka": "diezu",
+        "hika_toka": "diek",
+        "hika_noka": "dien",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nori)",
+        "aldia": "ORAINALDIA",
+        "zuka": "dizut",
+        "hika_toka": "diat",
+        "hika_noka": "dinat",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nori)",
+        "aldia": "ORAINALDIA",
+        "zuka": "dizugu",
+        "hika_toka": "diagu",
+        "hika_noka": "dinagu",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nori)",
+        "aldia": "ORAINALDIA",
+        "zuka": "dizute",
+        "hika_toka": "diate",
+        "hika_noka": "dinate",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenidan",
+        "hika_toka": "hidan",
+        "hika_noka": "hinan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenion",
+        "hika_toka": "hion",
+        "hika_noka": "hinon",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nori)",
+        "aldia": "LEHENALDIA",
+        "zuka": "nizun",
+        "hika_toka": "nian",
+        "hika_noka": "ninan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nori)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zizun",
+        "hika_toka": "zian",
+        "hika_noka": "zinan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "BALDINTZA",
+        "zuka": "bazina",
+        "hika_toka": "bahintz",
+        "hika_noka": "bahintz",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "BALDINTZA",
+        "zuka": "bazenu",
+        "hika_toka": "bahu",
+        "hika_noka": "bahu",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "BALDINTZA",
+        "zuka": "bazenitu",
+        "hika_toka": "bahitu",
+        "hika_noka": "bahitu",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "BALDINTZA",
+        "zuka": "balitzaizu",
+        "hika_toka": "balitzaik",
+        "hika_noka": "balitzain",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "ONDORIOA",
+        "zuka": "zinateke",
+        "hika_toka": "hintzateke",
+        "hika_noka": "hintzateke",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "ONDORIOA",
+        "zuka": "zenuke",
+        "hika_toka": "huke",
+        "hika_noka": "huke",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "ONDORIOA",
+        "zuka": "zenituzke",
+        "hika_toka": "hituzke",
+        "hika_noka": "hituzke",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nori)",
+        "aldia": "ONDORIOA",
+        "zuka": "litzaizuke",
+        "hika_toka": "litzaikek",
+        "hika_noka": "litzaiken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "ONDORIOA (IRAGANA)",
+        "zuka": "zinatekeen",
+        "hika_toka": "hintzatekeen",
+        "hika_noka": "hintzatekeen",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "ONDORIOA (IRAGANA)",
+        "zuka": "zenukeen",
+        "hika_toka": "hukeen",
+        "hika_noka": "hukeen",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "ONDORIOA (IRAGANA)",
+        "zuka": "zenituzkeen",
+        "hika_toka": "hituzkeen",
+        "hika_noka": "hituzkeen",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "POTENTZIALA (ORAIN)",
+        "zuka": "zaitezke",
+        "hika_toka": "haiteke",
+        "hika_noka": "haiteke",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "POTENTZIALA (ORAIN)",
+        "zuka": "dezakezu",
+        "hika_toka": "dezakek",
+        "hika_noka": "dezaken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "POTENTZIALA (ORAIN)",
+        "zuka": "ditzakezu",
+        "hika_toka": "ditzakek",
+        "hika_noka": "ditzaken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "POTENTZIALA (LEHEN)",
+        "zuka": "zintezkeen",
+        "hika_toka": "hintekeen",
+        "hika_noka": "hintekeen",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "POTENTZIALA (LEHEN)",
+        "zuka": "zenezakeen",
+        "hika_toka": "hezakeen",
+        "hika_noka": "hezakeen",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "POTENTZIALA (LEHEN)",
+        "zuka": "zenitzakeen",
+        "hika_toka": "hitzakeen",
+        "hika_noka": "hitzakeen",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "POTENTZIALA (HIPOTETIKOA)",
+        "zuka": "zintezke",
+        "hika_toka": "hinteke",
+        "hika_noka": "hinteke",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "POTENTZIALA (HIPOTETIKOA)",
+        "zuka": "zenezake",
+        "hika_toka": "hezake",
+        "hika_noka": "hezake",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "POTENTZIALA (HIPOTETIKOA)",
+        "zuka": "zenitzake",
+        "hika_toka": "hitzake",
+        "hika_noka": "hitzake",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "SUBJUNTIBOA (ORAIN)",
+        "zuka": "zaitezen",
+        "hika_toka": "hadin",
+        "hika_noka": "hadin",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "SUBJUNTIBOA (ORAIN)",
+        "zuka": "dezazun",
+        "hika_toka": "dezakan",
+        "hika_noka": "dezanan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "SUBJUNTIBOA (ORAIN)",
+        "zuka": "ditzazun",
+        "hika_toka": "ditzakan",
+        "hika_noka": "ditzanan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "SUBJUNTIBOA (LEHEN)",
+        "zuka": "zintezen",
+        "hika_toka": "hendin",
+        "hika_noka": "hendin",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "SUBJUNTIBOA (LEHEN)",
+        "zuka": "zenezan",
+        "hika_toka": "hezan",
+        "hika_noka": "hezan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "SUBJUNTIBOA (LEHEN)",
+        "zuka": "zenitzan",
+        "hika_toka": "hitzan",
+        "hika_noka": "hitzan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "INPERATIBOA",
+        "zuka": "zaitez",
+        "hika_toka": "hadi",
+        "hika_noka": "hadi",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "SUBJUNTIBOA (ORAIN)",
+        "zuka": "zaitezen",
+        "hika_toka": "hadin",
+        "hika_noka": "hadin",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "SUBJUNTIBOA (ORAIN)",
+        "zuka": "dezazun",
+        "hika_toka": "dezakan",
+        "hika_noka": "dezanan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "SUBJUNTIBOA (ORAIN)",
+        "zuka": "ditzazun",
+        "hika_toka": "ditzakan",
+        "hika_noka": "ditzanan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "SUBJUNTIBOA (LEHEN)",
+        "zuka": "zintezen",
+        "hika_toka": "hendin",
+        "hika_noka": "hendin",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "SUBJUNTIBOA (LEHEN)",
+        "zuka": "zenezan",
+        "hika_toka": "hezan",
+        "hika_noka": "hezan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "SUBJUNTIBOA (LEHEN)",
+        "zuka": "zenitzan",
+        "hika_toka": "hitzan",
+        "hika_noka": "hitzan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR saila",
+        "aldia": "INPERATIBOA",
+        "zuka": "zaitez",
+        "hika_toka": "hadi",
+        "hika_noka": "hadi",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "INPERATIBOA",
+        "zuka": "ezazu",
+        "hika_toka": "ezak",
+        "hika_noka": "ezan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork)",
+        "aldia": "INPERATIBOA",
+        "zuka": "itzazu",
+        "hika_toka": "itzak",
+        "hika_noka": "itzan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork - Ni Nor)",
+        "aldia": "BALDINTZA",
+        "zuka": "baninduzu",
+        "hika_toka": "baninduk",
+        "hika_noka": "banindun",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork - Gu Nor)",
+        "aldia": "BALDINTZA",
+        "zuka": "bagintuzu",
+        "hika_toka": "bagintuk",
+        "hika_noka": "bagintun",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork - Niri)",
+        "aldia": "BALDINTZA",
+        "zuka": "badidazu",
+        "hika_toka": "badidak",
+        "hika_noka": "badidan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork - Hari)",
+        "aldia": "BALDINTZA",
+        "zuka": "badiozu",
+        "hika_toka": "badiok",
+        "hika_noka": "badion",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork - Guri)",
+        "aldia": "BALDINTZA",
+        "zuka": "badiguzu",
+        "hika_toka": "badiguk",
+        "hika_noka": "badigun",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "izan",
+        "saila": "NOR-NORI saila (Zu Nor - Niri)",
+        "aldia": "BALDINTZA",
+        "zuka": "bazintzaizkit",
+        "hika_toka": "bahintzaizkit",
+        "hika_noka": "bahintzaizkit",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork - Ni Nor)",
+        "aldia": "ONDORIOA",
+        "zuka": "ninduzuke",
+        "hika_toka": "nindukek",
+        "hika_noka": "ninduken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORK saila (Zu Nork - Gu Nor)",
+        "aldia": "ONDORIOA",
+        "zuka": "gintuzuke",
+        "hika_toka": "gintukek",
+        "hika_noka": "gintuken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork - Niri)",
+        "aldia": "ONDORIOA",
+        "zuka": "didazuke",
+        "hika_toka": "didakek",
+        "hika_noka": "didaken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*edun",
+        "saila": "NOR-NORI-NORK saila (Zu Nork - Hari)",
+        "aldia": "ONDORIOA",
+        "zuka": "diozuke",
+        "hika_toka": "diokek",
+        "hika_noka": "dioken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork - Ni Nor)",
+        "aldia": "POTENTZIALA (ORAIN)",
+        "zuka": "nazakezu",
+        "hika_toka": "nazakek",
+        "hika_noka": "nazaken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork - Gu Nor)",
+        "aldia": "POTENTZIALA (ORAIN)",
+        "zuka": "gaitzakezu",
+        "hika_toka": "gaitzakek",
+        "hika_noka": "gaitzaken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORI-NORK saila (Zu Nork - Niri)",
+        "aldia": "POTENTZIALA (ORAIN)",
+        "zuka": "diezadakezu",
+        "hika_toka": "diezadakek",
+        "hika_noka": "diezadaken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORI-NORK saila (Zu Nork - Hari)",
+        "aldia": "POTENTZIALA (ORAIN)",
+        "zuka": "diezaiokezu",
+        "hika_toka": "diezaiokek",
+        "hika_noka": "diezaioken",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork - Ni Nor)",
+        "aldia": "POTENTZIALA (LEHEN)",
+        "zuka": "nindezakezun",
+        "hika_toka": "nindezakean",
+        "hika_noka": "nindezakenan",
+        "orrialdea": 1
+    },
+    {
+        "aditza": "*ezan",
+        "saila": "NOR-NORK saila (Zu Nork - Gu Nor)",
+        "aldia": "POTENTZIALA (LEHEN)",
+        "zuka": "gindezakezun",
+        "hika_toka": "gindezakean",
+        "hika_noka": "gindezakenan",
+        "orrialdea": 1
+    }
+]
+
