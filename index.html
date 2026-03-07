@@ -434,8 +434,10 @@
     /**
      * Testua itzuli.
      * Itzultzen du: { html: string (highlight markupekin), plain: string, count: number }
+     * lookupMap: aditz-formak (aditz_alokutiboak + zu_to_hi JSON-etik)
+     * pronounMap: izenordainak (stanza API-tik, aukerakoa)
      */
-    function translate(text, lookupMap, highlightClass) {
+    function translate(text, lookupMap, pronounMap = new Map()) {
         const tokens = tokenize(text);
         let html = '';
         let plain = '';
@@ -450,7 +452,8 @@
             }
 
             const key = token.text.toLowerCase();
-            const mapped = lookupMap.get(key);
+            // Aditz-lookup lehentasuna du; gero izenordain-mapa
+            const mapped = lookupMap.get(key) ?? pronounMap.get(key);
 
             if (mapped) {
                 const translated = transferCase(token.text, mapped);
@@ -590,7 +593,7 @@
             timer = setTimeout(doTranslate, 80);
         });
 
-        function doTranslate() {
+        async function doTranslate() {
             const text = input.value.trim();
 
             if (!text) {
@@ -600,8 +603,24 @@
                 return;
             }
 
-            const resToka = translate(text, lookup.toka, 'highlight');
-            const resNoka = translate(text, lookup.noka, 'highlight');
+            // Izenordainak stanza API-tik eskatu (zerbitzaria eskuragarri ez badago, hutsik)
+            let pronounMap = new Map();
+            try {
+                const resp = await fetch('/api/izenordainak', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ testua: text })
+                });
+                if (resp.ok) {
+                    const data = await resp.json();
+                    pronounMap = new Map(Object.entries(data.ordezkapnak));
+                }
+            } catch (_) {
+                // Zerbitzaria ez dago martxan — izenordainei ez zaie eragingo
+            }
+
+            const resToka = translate(text, lookup.toka, pronounMap);
+            const resNoka = translate(text, lookup.noka, pronounMap);
 
             outToka.innerHTML = resToka.html;
             outNoka.innerHTML = resNoka.html;
