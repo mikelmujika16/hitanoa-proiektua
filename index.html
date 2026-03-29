@@ -74,6 +74,30 @@
             font-weight: 400;
         }
 
+        .top-nav {
+            margin-top: 0.8rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .top-nav a {
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.45);
+            border-radius: 999px;
+            padding: 0.35rem 0.8rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: background var(--transition);
+        }
+
+        .top-nav a.active {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.75);
+        }
+
         /* ── Main ───────────────────────────────────── */
         main {
             flex: 1;
@@ -233,6 +257,173 @@
             color: var(--primary);
         }
 
+        .analysis-muted {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .analysis-error {
+            color: #b42318;
+            background: #fef3f2;
+            border: 1px solid #fecdca;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-size: 0.9rem;
+        }
+
+        /* ── Explain panel ───────────────────────────── */
+        .explain-panel {
+            margin-top: 0;
+        }
+
+        .explain-card {
+            border-left: 4px solid #6366f1;
+        }
+
+        .explain-card .card-label { color: #6366f1; }
+
+        .explain-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #f8f7ff;
+            border-radius: 8px;
+        }
+
+        .explain-token {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15rem;
+        }
+
+        .explain-token .orig {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            background: #fff;
+            border: 1px solid var(--border);
+        }
+
+        .explain-token .arrow {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .explain-token .result {
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 0.15rem 0.35rem;
+            border-radius: 4px;
+        }
+
+        .explain-token .result.changed-toka {
+            color: var(--toka-highlight);
+            background: var(--toka-bg);
+        }
+
+        .explain-token .result.changed-noka {
+            color: var(--noka-highlight);
+            background: var(--noka-bg);
+        }
+
+        .explain-token .result.unchanged {
+            color: var(--text-muted);
+            background: #f1f3f5;
+        }
+
+        .explain-token .result.blocked {
+            color: #b45309;
+            background: #fef3c7;
+        }
+
+        .explain-sep {
+            align-self: center;
+            color: #ccc;
+            font-size: 0.8rem;
+            min-width: 0.3rem;
+        }
+
+        .explain-details {
+            margin-top: 0.5rem;
+        }
+
+        .explain-step {
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+            padding: 0.55rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .explain-step:nth-child(odd) { background: #f8f7ff; }
+
+        .explain-step .step-num {
+            flex-shrink: 0;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .explain-step .step-num.cat-translated { background: #6366f1; }
+        .explain-step .step-num.cat-unchanged { background: #9ca3af; }
+        .explain-step .step-num.cat-blocked { background: #d97706; }
+
+        .explain-step .step-body { flex: 1; }
+
+        .explain-step .step-word {
+            font-weight: 700;
+        }
+
+        .explain-step .step-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 0.08rem 0.4rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-left: 0.4rem;
+            vertical-align: middle;
+        }
+
+        .step-tag.tag-verb { background: #ede9fe; color: #5b21b6; }
+        .step-tag.tag-pronoun { background: #dbeafe; color: #1d4ed8; }
+        .step-tag.tag-possessive { background: #fce7f3; color: #be185d; }
+        .step-tag.tag-blocked { background: #fef3c7; color: #b45309; }
+        .step-tag.tag-skip { background: #f1f3f5; color: #6b7280; }
+
+        .explain-step .step-rules {
+            margin-top: 0.2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .explain-step .step-rules li {
+            margin-left: 1rem;
+            list-style: disc;
+        }
+
+        .explain-step .step-result {
+            margin-top: 0.15rem;
+        }
+
+        .explain-step .step-result .toka-label { color: var(--toka-highlight); font-weight: 600; }
+        .explain-step .step-result .noka-label { color: var(--noka-highlight); font-weight: 600; }
+
         /* ── Copy button ────────────────────────────── */
         .copy-btn {
             position: absolute;
@@ -335,6 +526,10 @@
 <header>
     <h1>Hitano Itzultzailea</h1>
     <p>Zukako testua hikara itzuli — toka eta noka</p>
+    <nav class="top-nav" aria-label="Nabigazioa">
+        <a href="/" class="active">Itzultzailea</a>
+        <a href="/latxa">Latxa</a>
+    </nav>
 </header>
 
 <main id="app">
@@ -345,7 +540,7 @@
 </main>
 
 <footer>
-    Euskaltzaindiaren 14. arauan oinarrituta &middot; <a href="https://www.euskaltzaindia.eus" target="_blank">Euskaltzaindia</a>
+    Hitano Itzultzailea &middot; Zukako testua hikara
 </footer>
 
 <script>
@@ -358,28 +553,149 @@
 
     const DATA_URLS = [
         'json/aditz_alokutiboak.json',
-        'json/aditzak_bigarren_argumentala.json',
-        'json/aditzak_zu_to_hi.json'
+        'json/aditzak_argumentala_bateratua.json',
+        'json/aditz_trinkoa_argumentala.json'
     ];
 
     // 'zu' izenordainaren mapaketa — hitz-maila, forma osoak
     const IZENORDAIN_MAPA = new Map([
-        ['zu',         'hi'],
-        ['zuk',        'hik'],
-        ['zuri',       'hiri'],
-        ['zure',       'hire'],
-        ['zurekin',    'hirekin'],
-        ['zuretzat',   'hiretzat'],
-        ['zutaz',      'hitaz'],
-        ['zuregan',    'hiregan'],
-        ['zuregandik', 'hiregandik'],
-        ['zuregana',   'hiregana'],
+        // Forma arruntak
+        ['zu',            'hi'],
+        ['zuk',           'hik'],
+        ['zuri',          'hiri'],
+        ['zure',          'hire'],
+        ['zurekin',       'hirekin'],
+        ['zuretzat',      'hiretzat'],
+        ['zutaz',         'hitaz'],
+        ['zuregan',       'hiregan'],       // NORENGAN (zu-re-gan)
+        ['zugan',         'higan'],         // NORENGAN (zu-gan)
+        ['zuregandik',    'hiregandik'],    // NORENGANDIK (zu-re-gandik)
+        ['zugandik',      'higandik'],      // NORENGANDIK (zu-gandik)
+        ['zuregana',      'hiregana'],      // NORENGANA (zu-re-gana)
+        ['zugana',        'higana'],        // NORENGANA (zu-gana)
+        ['zureganantz',   'hireganantz'],   // NORENGANANTZ (zu-re-ganantz)
+        ['zuganantz',     'higanantz'],     // NORENGANANTZ (zu-ganantz)
+        ['zureganaino',   'hireganaino'],   // NORENGANAINO (zu-re-ganaino)
+        ['zuganaino',     'higanaino'],     // NORENGANAINO (zu-ganaino)
+        ['zuregatik',     'hiregatik'],     // NORENGATIK (zu-re-gatik)
+        ['zugatik',       'higatik'],       // NORENGATIK (zu-gatik)
+        // Forma indartuak
+        ['zeu',           'heu'],
+        ['zeuk',          'heuk'],
+        ['zeuri',         'heuri'],
+        ['zeure',         'heure'],
+        ['zeurekin',      'heurekin'],
+        ['zeuretzat',     'heuretzat'],
+        ['zeutaz',        'heutaz'],
+        ['zeuregan',      'heuregan'],      // NORENGAN (zeu-re-gan)
+        ['zeugan',        'heugan'],        // NORENGAN (zeu-gan)
+        ['zeuregandik',   'heuregandik'],   // NORENGANDIK (zeu-re-gandik)
+        ['zeugandik',     'heugandik'],     // NORENGANDIK (zeu-gandik)
+        ['zeuregana',     'heuregana'],     // NORENGANA (zeu-re-gana)
+        ['zeugana',       'heugana'],       // NORENGANA (zeu-gana)
+        ['zeureganantz',  'heureganantz'],  // NORENGANANTZ (zeu-re-ganantz)
+        ['zeuganantz',    'heuganantz'],    // NORENGANANTZ (zeu-ganantz)
+        ['zeureganaino',  'heureganaino'],  // NORENGANAINO (zeu-re-ganaino)
+        ['zeuganaino',    'heuganaino'],    // NORENGANAINO (zeu-ganaino)
+        ['zeuregatik',    'heuregatik'],    // NORENGATIK (zeu-re-gatik)
+        ['zeugatik',      'heugatik'],      // NORENGATIK (zeu-gatik)
     ]);
+
+    const POSSESSIVE_DECLINED_SUFFIXES = [
+        'a', 'ak', 'ari', 'aren', 'arekin', 'arentzat', 'az',
+        'an', 'ra', 'tik', 'ko', 'rantz', 'raino',
+        'ek', 'ei', 'en', 'ekin', 'entzat', 'ez',
+        'etan', 'etara', 'etatik', 'etako', 'etarantz', 'etaraino'
+    ];
+
+    for (const [sourceBase, targetBase] of [['zure', 'hire'], ['zeure', 'heure']]) {
+        for (const suffix of POSSESSIVE_DECLINED_SUFFIXES) {
+            const source = `${sourceBase}${suffix}`;
+            const target = `${targetBase}${suffix}`;
+            if (!IZENORDAIN_MAPA.has(source)) {
+                IZENORDAIN_MAPA.set(source, target);
+            }
+        }
+    }
+
+    const FORCED_FORM_OVERRIDES = {
+        toka: {
+            nago: 'nauk'
+        },
+        noka: {
+            nago: 'naun'
+        }
+    };
+
+    function normalizeAditza(entry) {
+        if (!entry || typeof entry.aditza !== 'string') return '';
+        return entry.aditza.trim().toLowerCase();
+    }
+
+    function detectSecondPersonArgumental(entry, sourceUrl) {
+        // Aditzak.eus eta argumental fitxategiak 2. pertsona argumentalak dira
+        if (sourceUrl && sourceUrl !== 'json/aditz_alokutiboak.json') return true;
+
+        const values = [entry.nor, entry.nork, entry.nori]
+            .filter(Boolean)
+            .map(v => String(v).trim().toLowerCase());
+
+        if (values.includes('zu') || values.includes('zuk') || values.includes('zuri')) {
+            return true;
+        }
+
+        if (typeof entry.saila === 'string' && /\(zu\s+(nork|nori)\)/i.test(entry.saila)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function noEsVerboComoBada(verboOriginal) {
+        // "bada" kasu anbiguoa da; ez blokeatu automatikoki ba- arauarekin.
+        return verboOriginal !== 'bada';
+    }
+
+    function esSubordinadaBloqueada(verboOriginal, lemaVerbo, esSegundaPersona) {
+        if (esSegundaPersona) {
+            return false;
+        }
+
+        if (verboOriginal.startsWith('ba') && noEsVerboComoBada(verboOriginal)) {
+            return true;
+        }
+
+        const sufijosInequivocos = [
+            'eino', 'eno', 'larik', 'elarik', 'nean', 'enean', 'neko', 'eneko',
+            'nerako', 'enerako', 'netik', 'enetik', 'lako', 'elako', 'lakoz',
+            'elakoz', 'lakotz', 'elakotz', 'lakoan', 'elakoan', 'na', 'ena',
+            'nentz', 'enentz', 'netz', 'enetz', 'nez', 'enez', 'nik', 'enik',
+            'la', 'ela'
+        ];
+
+        if (sufijosInequivocos.some(s => verboOriginal.endsWith(s))) {
+            return true;
+        }
+
+        if (verboOriginal.endsWith('n') || verboOriginal.endsWith('en')) {
+            // -n / -en kasuan parserrik gabe ez dugu ziurtasunik.
+            // Oraingoz ez dugu blokeatzen automatikoki.
+            void lemaVerbo;
+        }
+
+        return false;
+    }
 
     /**
      * JSON-tik lookup-mapak sortu.
-     * zukaToToka: Map<lowercase_zuka, {form: toka_string, parts: [alternatives]}>
-     * zukaToNoka: idem noka-rentzat
+     * zukaToToka / zukaToNoka: Map<lowercase_zuka, meta>
+     *
+     * meta = {
+     *   form: string,
+     *   lemaVerbo: string,
+     *   esSegundaPersona: boolean,
+     *   isVerb: boolean
+     * }
      *
      * Koma bidez bereizitako alternatibak (zuka: "a, b" / toka: "c, d")
      * banan-banan mapeatu: a→c, b→d
@@ -397,10 +713,55 @@
                 const key = zukas[i].toLowerCase();
                 const tVal = tokas[i] || tokas[0] || '';
                 const nVal = nokas[i] || nokas[0] || '';
+                const lemma = normalizeAditza(entry);
+                const esSegundaPersona = detectSecondPersonArgumental(entry, entry.__sourceUrl);
+                const tokaMeta = {
+                    form: tVal,
+                    lemaVerbo: lemma,
+                    esSegundaPersona,
+                    isVerb: true
+                };
+                const nokaMeta = {
+                    form: nVal,
+                    lemaVerbo: lemma,
+                    esSegundaPersona,
+                    isVerb: true
+                };
 
-                if (!toka.has(key)) toka.set(key, tVal);
-                if (!noka.has(key)) noka.set(key, nVal);
+                if (!toka.has(key)) {
+                    toka.set(key, tokaMeta);
+                } else if (esSegundaPersona) {
+                    const prev = toka.get(key);
+                    prev.esSegundaPersona = true;
+                    if (!prev.lemaVerbo && lemma) prev.lemaVerbo = lemma;
+                }
+
+                if (!noka.has(key)) {
+                    noka.set(key, nokaMeta);
+                } else if (esSegundaPersona) {
+                    const prev = noka.get(key);
+                    prev.esSegundaPersona = true;
+                    if (!prev.lemaVerbo && lemma) prev.lemaVerbo = lemma;
+                }
             }
+        }
+
+        // Lexical preference overrides for expected hitano outputs.
+        for (const [zuka, hika] of Object.entries(FORCED_FORM_OVERRIDES.toka)) {
+            toka.set(zuka, {
+                form: hika,
+                lemaVerbo: 'izan',
+                esSegundaPersona: false,
+                isVerb: true
+            });
+        }
+        for (const [zuka, hika] of Object.entries(FORCED_FORM_OVERRIDES.noka)) {
+            noka.set(zuka, {
+                form: hika,
+                lemaVerbo: 'izan',
+                esSegundaPersona: false,
+                isVerb: true
+            });
         }
 
         return { toka, noka };
@@ -411,8 +772,14 @@
      */
     function mergePronouns(lookup, pronounMap) {
         for (const [zu, hi] of pronounMap) {
-            if (!lookup.toka.has(zu)) lookup.toka.set(zu, hi);
-            if (!lookup.noka.has(zu)) lookup.noka.set(zu, hi);
+            const pronMeta = {
+                form: hi,
+                lemaVerbo: '',
+                esSegundaPersona: true,
+                isVerb: false
+            };
+            if (!lookup.toka.has(zu)) lookup.toka.set(zu, pronMeta);
+            if (!lookup.noka.has(zu)) lookup.noka.set(zu, pronMeta);
         }
     }
 
@@ -459,11 +826,12 @@
      * Testua itzuli.
      * Itzultzen du: { html: string (highlight markupekin), plain: string, count: number }
      */
-    function translate(text, lookupMap) {
+    function translate(text, lookupMap, zuriColorWordPositions = new Set()) {
         const tokens = tokenize(text);
         let html = '';
         let plain = '';
         let count = 0;
+        let wordIndex = -1;
 
         for (const token of tokens) {
             if (!token.isWord) {
@@ -473,11 +841,27 @@
                 continue;
             }
 
+            wordIndex += 1;
+
             const key = token.text.toLowerCase();
+
+            // "zuri" kolorea dela detektatzen bada, ez ordezkatu "hiri"-rekin.
+            if (key === 'zuri' && zuriColorWordPositions.has(wordIndex)) {
+                html += escapeHtml(token.text);
+                plain += token.text;
+                continue;
+            }
+
             const mapped = lookupMap.get(key);
 
             if (mapped) {
-                const translated = transferCase(token.text, mapped);
+                if (mapped.isVerb && esSubordinadaBloqueada(key, mapped.lemaVerbo, mapped.esSegundaPersona)) {
+                    html += escapeHtml(token.text);
+                    plain += token.text;
+                    continue;
+                }
+
+                const translated = transferCase(token.text, mapped.form);
                 html += `<span class="highlight">${escapeHtml(translated)}</span>`;
                 plain += translated;
                 count++;
@@ -492,6 +876,19 @@
 
     function escapeHtml(s) {
         return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    async function translateAndAnalyzeText(text) {
+        const resp = await fetch('/api/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text })
+        });
+        const payload = await resp.json();
+        if (!resp.ok) {
+            throw new Error(payload.error || 'Ezin izan da itzulpena lortu.');
+        }
+        return payload;
     }
 
     /* ================================================================
@@ -546,19 +943,43 @@
                 <span>Mapako formak: <span class="num" id="stat-forms">0</span></span>
             </div>
 
+            <div class="explain-panel" id="explain-panel">
+                <div class="card explain-card">
+                    <div class="card-label">
+                        Itzulpen-pausoak
+                        <span class="badge" style="background:#ede9fe;color:#6366f1">Azalpena</span>
+                    </div>
+                    <div id="explain-content"></div>
+                </div>
+            </div>
+
             <div class="info-section">
                 <details>
                     <summary>Nola funtzionatzen du?</summary>
                     <div class="info-content">
-                        Tresna honek bi iturri erabiltzen ditu: Euskaltzaindiaren 14. arautik
-                        (<em>Adizki alokutiboez, hikako moldea</em>) erauzi diren <strong>1560 aditz-forma</strong>,
-                        eta bigarren argumentaleko (hizketakidea ez den hartzailea) adizki osagarriak.
-                        Sarrerako testuaren hitz bakoitza zukako aditz-formen mapan bilatzen da eta,
-                        aurkituz gero, dagokion hikako formarekin ordezkatzen da (toka ala noka).
+                        Tresna honek zukako testua hikara (toka eta noka) itzultzen du, pauso hauek jarraituz:
                         <br><br>
-                        <strong>Mugak:</strong> Hitz-mailako ordezkapena da; ez du analisi morfologikorik egiten.
+                        <strong>1. Bilaketa-taulak:</strong> 3 JSON fitxategitatik (+1500 aditz-forma) eta izenordain-mapa batetik
+                        (<code>zu→hi, zuk→hik, zuri→hiri...</code>) lookup-mapak eraikitzen dira. Posesiboen deklinabide-formak
+                        (<code>zurea, zureak, zurekin...</code>) ere automatikoki sortzen dira.
+                        <br><br>
+                        <strong>2. Tokenizazioa:</strong> Testua hitzetan eta ez-hitzetan (puntuazioa, zuriuneak) banatzen da.
+                        <br><br>
+                        <strong>3. Token bakoitzeko itzulpena:</strong>
+                        <ul style="margin:0.3rem 0 0.3rem 1.2rem">
+                            <li><em>Zuri desanbiguazioa:</em> «zuri» kolorea den kasuetan, ez da «hiri»-ra aldatzen (Stanza NLP bidez).</li>
+                            <li><em>Menpeko perpaus blokeoa:</em> 3. pertsonako aditzak ba-/bait- aurrizkiarekin edo
+                                menpeko atzizkiekin (-lako, -nean, -la...) blokeatzen dira, alokutiboa ez baita aldatzen.</li>
+                            <li><em>ba-/bait- aurrizkiak:</em> Aurrizkia kendu, enborra itzuli, eta aurrizkia berriro gehitzen da.</li>
+                            <li><em>Menpeko atzizkiak:</em> Atzizkia banandu, enborra itzuli, eta atzizkia lotzen da.
+                                Bokal-lotura araua: enborra bokalaz amaitzen bada eta atzizkia «e»-z hasten, «e» kentzen da
+                                (adib. <code>hoa+elako → hoalako</code>).</li>
+                            <li><em>Kasu-transferentzia:</em> Jatorrizkoaren maiuskula/minuskula patroia mantentzen da.</li>
+                            <li><em>HTML nabarmentzea:</em> Itzulitako hitzak &lt;span class="highlight"&gt; bidez markatzen dira.</li>
+                        </ul>
+                        <br>
+                        <strong>Mugak:</strong> Hitz-mailako ordezkapena da; testuinguru gramatikala ez du guztiz kontuan hartzen.
                         Zuka eta hika berdinak diren formak (adib. <code>dut</code>) ez dira aldatzen.
-                        Testuinguru gramatikala ez du kontuan hartzen.
                     </div>
                 </details>
             </div>
@@ -572,30 +993,6 @@
     async function init() {
         const app = document.getElementById('app');
 
-        let allData = [];
-        try {
-            const responses = await Promise.all(DATA_URLS.map(url => fetch(url)));
-            for (const resp of responses) {
-                if (!resp.ok) throw new Error(resp.statusText);
-                const data = await resp.json();
-                allData = allData.concat(data);
-            }
-        } catch (err) {
-            app.innerHTML = `
-                <div class="card" style="text-align:center;padding:2rem;color:#d93025">
-                    <strong>Errorea datuak kargatzean</strong><br>
-                    <span style="font-size:0.85rem;color:var(--text-muted)">
-                        Ziurtatu JSON fitxategiak <code>json/</code> karpetan eskuragarri daudela.<br>
-                        HTTP zerbitzari bat behar da (adib. <code>python -m http.server</code>).
-                    </span>
-                </div>`;
-            return;
-        }
-
-        const lookup = buildLookup(allData);
-        mergePronouns(lookup, IZENORDAIN_MAPA);
-        const totalForms = lookup.toka.size;
-
         // UI marraztu
         app.innerHTML = renderApp();
 
@@ -605,34 +1002,155 @@
         const stats = document.getElementById('stats');
         const statReplaced = document.getElementById('stat-replaced');
         const statForms = document.getElementById('stat-forms');
+        const explainContent = document.getElementById('explain-content');
 
-        statForms.textContent = totalForms;
+        statForms.textContent = '-';
+        let analysisRequestId = 0;
 
         // Debounced itzulpena
         let timer;
         input.addEventListener('input', () => {
             clearTimeout(timer);
-            timer = setTimeout(doTranslate, 80);
+            timer = setTimeout(doTranslate, 120);
         });
 
-        function doTranslate() {
+        async function doTranslate() {
             const text = input.value.trim();
+            const currentId = ++analysisRequestId;
 
             if (!text) {
                 outToka.innerHTML = '<span class="placeholder-text">Hemen tokako itzulpena agertuko da...</span>';
                 outNoka.innerHTML = '<span class="placeholder-text">Hemen nokako itzulpena agertuko da...</span>';
                 stats.style.display = 'none';
+                explainContent.innerHTML = '';
                 return;
             }
 
-            const resToka = translate(text, lookup.toka);
-            const resNoka = translate(text, lookup.noka);
+            let payload = null;
+            try {
+                payload = await translateAndAnalyzeText(text);
+            } catch (err) {
+                if (currentId !== analysisRequestId) return;
+                outToka.innerHTML = '<span class="placeholder-text">Errorea itzulpenean.</span>';
+                outNoka.innerHTML = '<span class="placeholder-text">Errorea itzulpenean.</span>';
+                stats.style.display = 'none';
+                analysisContent.innerHTML = `<div class="analysis-error">${escapeHtml(err.message || 'Errore ezezaguna')}</div>`;
+                return;
+            }
 
-            outToka.innerHTML = resToka.html;
-            outNoka.innerHTML = resNoka.html;
+            if (currentId !== analysisRequestId) return;
 
-            statReplaced.textContent = Math.max(resToka.count, resNoka.count);
+            const toka = payload.toka || { html: '', count: 0 };
+            const noka = payload.noka || { html: '', count: 0 };
+
+            outToka.innerHTML = toka.html || '<span class="placeholder-text">-</span>';
+            outNoka.innerHTML = noka.html || '<span class="placeholder-text">-</span>';
+
+            statReplaced.textContent = Math.max(toka.count || 0, noka.count || 0);
+            if (payload.total_forms !== undefined && payload.total_forms !== null) {
+                statForms.textContent = String(payload.total_forms);
+            }
             stats.style.display = 'flex';
+            fetchAndRenderExplain(text);
+        }
+
+        async function fetchAndRenderExplain(text) {
+            explainContent.innerHTML = '<div class="analysis-muted">Kargatzen...</div>';
+            try {
+                const resp = await fetch('/api/explain', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+                const data = await resp.json();
+                explainContent.innerHTML = renderExplainSteps(data.steps || []);
+            } catch (e) {
+                explainContent.innerHTML = '<div class="analysis-error">' + escapeHtml(e.message) + '</div>';
+            }
+        }
+
+        function renderExplainSteps(steps) {
+            const wordSteps = steps.filter(s => s.type === 'word');
+            if (!wordSteps.length) return '<div class="analysis-muted">Ez dago hitzik aztertzeko.</div>';
+
+            // Flow visualization
+            let flowHtml = '<div class="explain-flow">';
+            for (const s of steps) {
+                if (s.type === 'separator') {
+                    const vis = s.token.replace(/ /g, '\u00b7').replace(/\n/g, '\u21b5');
+                    flowHtml += '<span class="explain-sep">' + escapeHtml(vis) + '</span>';
+                    continue;
+                }
+                let resultClass = 'unchanged';
+                let resultText = s.token;
+                if (s.action === 'translated') {
+                    resultClass = 'changed-toka';
+                    resultText = s.toka || s.token;
+                } else if (s.action === 'blocked') {
+                    resultClass = 'blocked';
+                }
+                flowHtml += '<span class="explain-token">';
+                flowHtml += '<span class="orig">' + escapeHtml(s.token) + '</span>';
+                if (s.action === 'translated') {
+                    flowHtml += '<span class="arrow">\u2193</span>';
+                    flowHtml += '<span class="result ' + resultClass + '">' + escapeHtml(resultText) + '</span>';
+                } else if (s.action === 'blocked') {
+                    flowHtml += '<span class="arrow">\u2717</span>';
+                    flowHtml += '<span class="result ' + resultClass + '">blokeatua</span>';
+                }
+                flowHtml += '</span>';
+            }
+            flowHtml += '</div>';
+
+            // Detail list
+            let detailHtml = '<div class="explain-details">';
+            let num = 0;
+            for (const s of wordSteps) {
+                num++;
+                let catClass = 'cat-unchanged';
+                let tagHtml = '';
+                if (s.action === 'translated') {
+                    catClass = 'cat-translated';
+                    const cat = s.category || '';
+                    if (cat.includes('aditz')) tagHtml = '<span class="step-tag tag-verb">Aditza</span>';
+                    else if (cat === 'izenordaina') tagHtml = '<span class="step-tag tag-pronoun">Izenordaina</span>';
+                    else if (cat === 'posesiboa') tagHtml = '<span class="step-tag tag-possessive">Posesiboa</span>';
+                } else if (s.action === 'blocked') {
+                    catClass = 'cat-blocked';
+                    tagHtml = '<span class="step-tag tag-blocked">Blokeatua</span>';
+                } else {
+                    tagHtml = '<span class="step-tag tag-skip">Mantendua</span>';
+                }
+
+                let bodyHtml = '<span class="step-word">' + escapeHtml(s.token) + '</span>' + tagHtml;
+
+                if (s.action === 'translated') {
+                    bodyHtml += '<div class="step-result">';
+                    bodyHtml += '<span class="toka-label">Toka:</span> ' + escapeHtml(s.toka || '') + ' \u00b7 ';
+                    bodyHtml += '<span class="noka-label">Noka:</span> ' + escapeHtml(s.noka || '');
+                    bodyHtml += '</div>';
+                }
+
+                if (s.reason) {
+                    bodyHtml += '<div class="step-rules"><em>' + escapeHtml(s.reason) + '</em></div>';
+                }
+
+                if (s.rules && s.rules.length) {
+                    bodyHtml += '<ul class="step-rules">';
+                    for (const r of s.rules) {
+                        bodyHtml += '<li>' + escapeHtml(r) + '</li>';
+                    }
+                    bodyHtml += '</ul>';
+                }
+
+                detailHtml += '<div class="explain-step">';
+                detailHtml += '<span class="step-num ' + catClass + '">' + num + '</span>';
+                detailHtml += '<div class="step-body">' + bodyHtml + '</div>';
+                detailHtml += '</div>';
+            }
+            detailHtml += '</div>';
+
+            return flowHtml + detailHtml;
         }
 
         // Kopiatu botoiak

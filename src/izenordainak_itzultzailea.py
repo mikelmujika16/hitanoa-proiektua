@@ -3,17 +3,59 @@ import re
 # 'zu' izenordainaren forma guztien mapaketa 'hi'-rako
 # Giltza: hitz-forma (minuskulaz); Balioa: hika forma
 mapaketa_zu_hi = {
-    "zu":         "hi",          # Absolutiboa (NOR)
-    "zuk":        "hik",         # Ergatiboa (NORK)
-    "zuri":       "hiri",        # Datiboa (NORI)
-    "zure":       "hire",        # Jabetza-genitiboa (NOREN)
-    "zurekin":    "hirekin",     # Soziatiboa (NOREKIN)
-    "zuretzat":   "hiretzat",    # Destinatiboa/Onuraduna (NORENTZAT)
-    "zutaz":      "hitaz",       # Instrumentala/Motibazioa (ZERTAZ)
-    "zuregan":    "hiregan",     # Inesibo animatua (NOREGAN)
-    "zuregandik": "hiregandik",  # Bizi-ablatiboa animatua (NOREGANDIK)
-    "zuregana":   "hiregana",    # Bizi-adlatiboa animatua (NOREGANA)
+    # Forma arruntak
+    "zu":            "hi",            # NOR
+    "zuk":           "hik",           # NORK
+    "zuri":          "hiri",          # NORI
+    "zure":          "hire",          # NOREN
+    "zurekin":       "hirekin",       # NOREKIN
+    "zuretzat":      "hiretzat",      # NORENTZAT
+    "zutaz":         "hitaz",         # ZERTAZ
+    "zuregan":       "hiregan",       # NORENGAN (zu-re-gan)
+    "zugan":         "higan",         # NORENGAN (zu-gan)
+    "zuregandik":    "hiregandik",    # NORENGANDIK (zu-re-gandik)
+    "zugandik":      "higandik",      # NORENGANDIK (zu-gandik)
+    "zuregana":      "hiregana",      # NORENGANA (zu-re-gana)
+    "zugana":        "higana",        # NORENGANA (zu-gana)
+    "zureganantz":   "hireganantz",   # NORENGANANTZ (zu-re-ganantz)
+    "zuganantz":     "higanantz",     # NORENGANANTZ (zu-ganantz)
+    "zureganaino":   "hireganaino",   # NORENGANAINO (zu-re-ganaino)
+    "zuganaino":     "higanaino",     # NORENGANAINO (zu-ganaino)
+    "zuregatik":     "hiregatik",     # NORENGATIK (zu-re-gatik)
+    "zugatik":       "higatik",       # NORENGATIK (zu-gatik)
+    
+    # Forma indartuak
+    "zeu":           "heu",
+    "zeuk":          "heuk",
+    "zeuri":         "heuri",
+    "zeure":         "heure",
+    "zeurekin":      "heurekin",
+    "zeuretzat":     "heuretzat",
+    "zeutaz":        "heutaz",
+    "zeuregan":      "heuregan",      # NORENGAN (zeu-re-gan)
+    "zeugan":        "heugan",        # NORENGAN (zeu-gan)
+    "zeuregandik":   "heuregandik",   # NORENGANDIK (zeu-re-gandik)
+    "zeugandik":     "heugandik",     # NORENGANDIK (zeu-gandik)
+    "zeuregana":     "heuregana",     # NORENGANA (zeu-re-gana)
+    "zeugana":       "heugana",       # NORENGANA (zeu-gana)
+    "zeureganantz":  "heureganantz",  # NORENGANANTZ (zeu-re-ganantz)
+    "zeuganantz":    "heuganantz",    # NORENGANANTZ (zeu-ganantz)
+    "zeureganaino":  "heureganaino",  # NORENGANAINO (zeu-re-ganaino)
+    "zeuganaino":    "heuganaino",    # NORENGANAINO (zeu-ganaino)
+    "zeuregatik":    "heuregatik",    # NORENGATIK (zeu-re-gatik)
+    "zeugatik":      "heugatik",      # NORENGATIK (zeu-gatik)
 }
+
+deklinabide_atzizkiak = [
+    "a", "ak", "ari", "aren", "arekin", "arentzat", "az",
+    "an", "ra", "tik", "ko", "rantz", "raino",
+    "ek", "ei", "en", "ekin", "entzat", "ez",
+    "etan", "etara", "etatik", "etako", "etarantz", "etaraino",
+]
+
+for jatorria, helburua in (("zure", "hire"), ("zeure", "heure")):
+    for atzizkia in deklinabide_atzizkiak:
+        mapaketa_zu_hi.setdefault(f"{jatorria}{atzizkia}", f"{helburua}{atzizkia}")
 
 
 def izenordainak_itzuli_zu_hi(testua):

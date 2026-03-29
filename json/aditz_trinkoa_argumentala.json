@@ -1,0 +1,226 @@
+[
+    {
+        "aditza": "egon",
+        "saila": "NOR saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "zaude",
+        "hika_toka": "hago",
+        "hika_noka": "hago"
+    },
+    {
+        "aditza": "egon",
+        "saila": "NOR saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zeunden",
+        "hika_toka": "hengoen",
+        "hika_noka": "hengoen"
+    },
+    {
+        "aditza": "etorri",
+        "saila": "NOR saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "zatoz",
+        "hika_toka": "hator",
+        "hika_noka": "hator"
+    },
+    {
+        "aditza": "etorri",
+        "saila": "NOR saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zentozen",
+        "hika_toka": "hentorren",
+        "hika_noka": "hentorren"
+    },
+    {
+        "aditza": "joan",
+        "saila": "NOR saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "zoaz",
+        "hika_toka": "hoa",
+        "hika_noka": "hoa"
+    },
+    {
+        "aditza": "joan",
+        "saila": "NOR saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zindoazen",
+        "hika_toka": "hihoan",
+        "hika_noka": "hihoan"
+    },
+    {
+        "aditza": "ibili",
+        "saila": "NOR saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "zabiltza",
+        "hika_toka": "habil",
+        "hika_noka": "habil"
+    },
+    {
+        "aditza": "ibili",
+        "saila": "NOR saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenbiltzan",
+        "hika_toka": "henbilen",
+        "hika_noka": "henbilen"
+    },
+    {
+        "aditza": "eduki",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "daukazu",
+        "hika_toka": "daukak",
+        "hika_noka": "daukan"
+    },
+    {
+        "aditza": "eduki",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zeneukan",
+        "hika_toka": "heukan",
+        "hika_noka": "heukanan"
+    },
+    {
+        "aditza": "ekarri",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "dakarzu",
+        "hika_toka": "dakark",
+        "hika_noka": "dakarn"
+    },
+    {
+        "aditza": "ekarri",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenekarren",
+        "hika_toka": "hekarren",
+        "hika_noka": "hekarnan"
+    },
+    {
+        "aditza": "eraman",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "daramazu",
+        "hika_toka": "daramak",
+        "hika_noka": "daraman"
+    },
+    {
+        "aditza": "eraman",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zeneraman",
+        "hika_toka": "heraman",
+        "hika_noka": "heramanan"
+    },
+    {
+        "aditza": "erabili",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "darabilzu",
+        "hika_toka": "darabilk",
+        "hika_noka": "darabiln"
+    },
+    {
+        "aditza": "erabili",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenerabilen",
+        "hika_toka": "herabilen",
+        "hika_noka": "herabilnan"
+    },
+    {
+        "aditza": "jakin",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "dakizu",
+        "hika_toka": "dakik",
+        "hika_noka": "dakin"
+    },
+    {
+        "aditza": "jakin",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenekien",
+        "hika_toka": "hekien",
+        "hika_noka": "hekinan"
+    },
+    {
+        "aditza": "ikusi",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "dakusazu",
+        "hika_toka": "dakusak",
+        "hika_noka": "dakusan"
+    },
+    {
+        "aditza": "ikusi",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenekusan",
+        "hika_toka": "hekusan",
+        "hika_noka": "hekusanan"
+    },
+    {
+        "aditza": "esan",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "diozu",
+        "hika_toka": "diok",
+        "hika_noka": "dion"
+    },
+    {
+        "aditza": "esan",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenioen",
+        "hika_toka": "hioen",
+        "hika_noka": "hionan"
+    },
+    {
+        "aditza": "iritzi",
+        "saila": "NOR-NORI-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "deritzozu",
+        "hika_toka": "deritzok",
+        "hika_noka": "deritzon"
+    },
+    {
+        "aditza": "iritzi",
+        "saila": "NOR-NORI-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zeneritzon",
+        "hika_toka": "heritzon",
+        "hika_noka": "heritzonan"
+    },
+    {
+        "aditza": "jardun",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "diharduzu",
+        "hika_toka": "diharduk",
+        "hika_noka": "dihardun"
+    },
+    {
+        "aditza": "jardun",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zeniharduen",
+        "hika_toka": "hiharduen",
+        "hika_noka": "hihardunan"
+    },
+    {
+        "aditza": "iruditu",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "ORAINALDIA",
+        "zuka": "dirudizu",
+        "hika_toka": "dirudik",
+        "hika_noka": "dirudin"
+    },
+    {
+        "aditza": "iruditu",
+        "saila": "NOR-NORK saila (Trinkoa)",
+        "aldia": "LEHENALDIA",
+        "zuka": "zenirudien",
+        "hika_toka": "hirudien",
+        "hika_noka": "hirudinan"
+    }
+]

@@ -1,0 +1,5 @@
+Stanza modeloa kargatzen...
+Prest.
+Zerbitzaria abiatzen: http://localhost:5000
+ * Serving Flask app 'server'
+ * Debug mode: off
