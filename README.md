@@ -1,7 +1,5 @@
 # Hitano Itzultzailea
 
-> **[https://mikelmujika16.github.io/hitanoa-proiektua/](https://mikelmujika16.github.io/hitanoa-proiektua/)**
-
 ## Zer da?
 
 Hitano Itzultzailea **zukako euskal testua hikara (toka eta noka)** automatikoki bihurtzen duen web aplikazioa da. Euskaltzaindiaren 14. araua (*Adizki alokutiboez, hikako moldea*) oinarri hartuta, aditz-forma alokutiboak, izenordainak eta posesiboak itzultzen ditu denbora errealean.
