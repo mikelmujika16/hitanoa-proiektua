@@ -70,16 +70,16 @@ def run_tests() -> None:
     assert tr.translate_toka(zuka_8b) == expected_8b
     assert tr.translate_noka(zuka_8b) == expected_8b
 
-    # TEST 9 - mendeko -n + 2. argumentala: duk/dun + n -> dukan/dunan
+    # TEST 9 - mendeko -n + 2. argumentala: duk/dun + n -> duan/dunan
     zuka_9 = "Zuk esan duzun hori ona da."
-    toka_9 = "Hik esan dukan hori ona duk."
+    toka_9 = "Hik esan duan hori ona duk."
     noka_9 = "Hik esan dunan hori ona dun."
     assert tr.translate_toka(zuka_9) == toka_9
     assert tr.translate_noka(zuka_9) == noka_9
 
-    # TEST 10 - mendeko -lako + 2. argumentala: duk/dun + lako -> dukalako/dunalako
+    # TEST 10 - mendeko -lako + 2. argumentala: duk/dun + lako -> dualako/dunalako
     zuka_10 = "Zuk esan duzulako, nik sinesten dizut."
-    toka_10 = "Hik esan dukalako, nik sinesten diat."
+    toka_10 = "Hik esan dualako, nik sinesten diat."
     noka_10 = "Hik esan dunalako, nik sinesten dinat."
     assert tr.translate_toka(zuka_10) == toka_10
     assert tr.translate_noka(zuka_10) == noka_10

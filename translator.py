@@ -106,6 +106,7 @@ class MappingMeta:
     es_segunda_persona: bool
     is_verb: bool
     aldia: str = ""
+    source: str = ""
 
 
 @dataclass
@@ -197,18 +198,30 @@ def _ends_with_vowel(word: str) -> bool:
 
 
 def _compose_with_suffix(base_form: str, suffix: str, meta: MappingMeta) -> str:
+    # Argumentala bateratua: forma "k"-z amaitzen denean mendeko atzizkia gehitzean,
+    # "k" -> "a" bihurtu: duk + lako -> dualako, duk + n -> duan.
+    if (meta.is_verb and meta.source == "json/aditzak_argumentala_bateratua.json"
+            and base_form.endswith("k") and suffix):
+        base_form = base_form[:-1] + "a"
     # 2. argumentaleko aditzetan, forma kontsonantez amaitzen denean,
     # mendeko atzizkien aurretik loturazko "a" txertatu:
     # duk + n -> dukan, duk + lako -> dukalako.
     if meta.is_verb and meta.es_segunda_persona and _ends_with_consonant(base_form) and suffix:
         if suffix[0].lower() not in {"a", "e", "i", "o", "u"}:
             return f"{base_form}a{suffix}"
-    # 2. argumentaleko aditzetan, hikako forma bokalez amaitzen denean
+    # 2. argumentaleko aditzetan, hikako forma "a"-z amaitzen denean
     # eta atzizkiak loturazko "e"-z hasten denean (elako, enean, ela...),
     # "e" hori kendu: hoa + elako -> hoalako (ez *hoaelako).
-    if meta.is_verb and meta.es_segunda_persona and _ends_with_vowel(base_form) and suffix:
+    # "a"-z ez amaitzen denean "e" mantendu: hago + elako -> hagoelako.
+    if meta.is_verb and meta.es_segunda_persona and base_form.endswith("a") and suffix:
         if suffix.startswith("e") and len(suffix) > 1 and suffix[1:] in _VOWEL_LINK_STRIPPED:
             return f"{base_form}{suffix[1:]}"
+    # Hikako forma "a"-z ez den bokala amaitzen denean eta atzizkia "e-gabeko" bertsioa
+    # denean (_VOWEL_LINK_STRIPPED-en), loturazko "e" txertatu:
+    # hago + la -> hagoela, hago + lako -> hagoelako.
+    if meta.is_verb and meta.es_segunda_persona and _ends_with_vowel(base_form) and not base_form.endswith("a") and suffix:
+        if suffix in _VOWEL_LINK_STRIPPED:
+            return f"{base_form}e{suffix}"
     return f"{base_form}{suffix}"
 
 
@@ -234,6 +247,7 @@ def _resolve_mapping(key: str, lookup: Dict[str, MappingMeta]) -> Tuple[Optional
                 es_segunda_persona=mapped.es_segunda_persona,
                 is_verb=mapped.is_verb,
                 aldia=mapped.aldia,
+                source=mapped.source,
             )
             return composed, composed.form
 
@@ -250,6 +264,7 @@ def _resolve_mapping(key: str, lookup: Dict[str, MappingMeta]) -> Tuple[Optional
                 es_segunda_persona=mapped.es_segunda_persona,
                 is_verb=mapped.is_verb,
                 aldia=mapped.aldia,
+                source=mapped.source,
             )
             return composed, composed.form
 
@@ -264,12 +279,20 @@ def _resolve_mapping(key: str, lookup: Dict[str, MappingMeta]) -> Tuple[Optional
             if not meta:
                 continue
 
+            # "duzuelako" bezalako formak "zuek"-en forma dira (duzu + e + lako),
+            # ez "zu"-ren forma (duzu + elako). Itzulpena ez egin.
+            if (meta.source == "json/aditzak_argumentala_bateratua.json"
+                    and candidate_base.endswith("zu")
+                    and suffix.startswith("e")):
+                continue
+
             composed = MappingMeta(
                 form=_compose_with_suffix(meta.form, suffix, meta),
                 lema_verbo=meta.lema_verbo,
                 es_segunda_persona=meta.es_segunda_persona,
                 is_verb=meta.is_verb,
                 aldia=meta.aldia,
+                source=meta.source,
             )
             return composed, composed.form
 
@@ -312,8 +335,9 @@ class HitanoTranslator:
                 aldia = str(entry.get("aldia", "")).strip().upper()
                 es_segunda = _detect_second_person_argumental(entry, entry["__source_url"])
 
-                t_meta = MappingMeta(t_val, lemma, es_segunda, True, aldia)
-                n_meta = MappingMeta(n_val, lemma, es_segunda, True, aldia)
+                source = entry["__source_url"]
+                t_meta = MappingMeta(t_val, lemma, es_segunda, True, aldia, source)
+                n_meta = MappingMeta(n_val, lemma, es_segunda, True, aldia, source)
 
                 if key not in toka:
                     toka[key] = t_meta
