@@ -91,7 +91,23 @@ def run_tests() -> None:
     assert tr.translate_toka(zuka_11) == toka_11
     assert tr.translate_noka(zuka_11) == noka_11
 
-    print("All tests passed (12/12).")
+    # TEST 12 - bait- con g a k: baikaituzu (gaituzu) -> baikaituk/baikaitun
+    assert tr.translate_toka("baikaituzu") == "baikaituk"
+    assert tr.translate_noka("baikaituzu") == "baikaitun"
+
+    # TEST 13 - bait- con z (no cambia la letra): baitzara, baitzenuen
+    assert tr.translate_toka("baitzara") == "baithaiz"
+    assert tr.translate_noka("baitzara") == "baithaiz"
+    assert tr.translate_toka("baitzenuen") == "baithuan"
+    assert tr.translate_noka("baitzenuen") == "baithunan"
+
+    # TEST 14 - mendeko atzizkia + n kendu: zenuelako, zenuena
+    assert tr.translate_toka("zenuelako") == "hualako"
+    assert tr.translate_noka("zenuelako") == "hunalako"
+    assert tr.translate_toka("zenuena") == "huana"
+    assert tr.translate_noka("zenuena") == "hunana"
+
+    print("All tests passed (15/15).")
 
 
 if __name__ == "__main__":

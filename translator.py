@@ -228,7 +228,9 @@ def _compose_with_suffix(base_form: str, suffix: str, meta: MappingMeta) -> str:
 def _to_bait_form(mapped_form: str) -> str:
     if mapped_form.startswith("d"):
         return f"bait{mapped_form[1:]}"
-    return mapped_form
+    if mapped_form.startswith("g"):
+        return f"baik{mapped_form[1:]}"
+    return f"bait{mapped_form}"
 
 
 def _resolve_mapping(key: str, lookup: Dict[str, MappingMeta]) -> Tuple[Optional[MappingMeta], str]:
@@ -252,8 +254,15 @@ def _resolve_mapping(key: str, lookup: Dict[str, MappingMeta]) -> Tuple[Optional
             return composed, composed.form
 
     # Conditional-conclusion bait- forms: baituzu -> (duzu -> duk) -> baituk.
+    # Also: baitzara -> (zara -> haiz) -> baithaiz,
+    #        baikaituzu -> (gaituzu -> gaituk) -> baikaituk.
+    bait_candidates: list[str] = []
     if key.startswith("bait") and len(key) > 4:
-        normalized = "d" + key[4:]
+        bait_candidates = ["d" + key[4:], key[4:]]
+    elif key.startswith("baik") and len(key) > 4:
+        bait_candidates = ["g" + key[4:]]
+
+    for normalized in bait_candidates:
         mapped, built = _resolve_mapping(normalized, lookup)
         if mapped and mapped.is_verb and mapped.es_segunda_persona:
             hika_base = built if built else mapped.form
@@ -274,7 +283,11 @@ def _resolve_mapping(key: str, lookup: Dict[str, MappingMeta]) -> Tuple[Optional
             continue
 
         raw_base = key[:-len(suffix)]
-        for candidate_base in (raw_base, raw_base + "a"):
+        for candidate_base, strip_trailing_n in (
+            (raw_base, False),
+            (raw_base + "n", True),
+            (raw_base + "a", False),
+        ):
             meta = lookup.get(candidate_base)
             if not meta:
                 continue
@@ -286,8 +299,14 @@ def _resolve_mapping(key: str, lookup: Dict[str, MappingMeta]) -> Tuple[Optional
                     and suffix.startswith("e")):
                 continue
 
+            hika_form = meta.form
+            # Oinarrizko formari amaierako "n" kendu atzizkia gehitu aurretik
+            # (zenuen -> huan: zenuelako = zenue+lako -> hua+lako = hualako).
+            if strip_trailing_n and hika_form.endswith("n"):
+                hika_form = hika_form[:-1]
+
             composed = MappingMeta(
-                form=_compose_with_suffix(meta.form, suffix, meta),
+                form=_compose_with_suffix(hika_form, suffix, meta),
                 lema_verbo=meta.lema_verbo,
                 es_segunda_persona=meta.es_segunda_persona,
                 is_verb=meta.is_verb,
@@ -571,8 +590,10 @@ class HitanoTranslator:
                 elif built:
                     # Composed form — explain the composition
                     if key.startswith("bait") and len(key) > 4:
-                        normalized = "d" + key[4:]
-                        rule_parts.append(f"bait- aurrizkia: {key} → d{key[4:]} → bilatu → bait- berriz jarri")
+                        rule_parts.append(f"bait- aurrizkia: {key} → bilatu → bait- berriz jarri")
+                        step["category"] = "aditz-forma (bait-)"
+                    elif key.startswith("baik") and len(key) > 4:
+                        rule_parts.append(f"baik- aurrizkia (g→k): {key} → g{key[4:]} → bilatu → baik- berriz jarri")
                         step["category"] = "aditz-forma (bait-)"
                     elif key.startswith("ba") and no_es_verbo_como_bada(key):
                         sub = key[2:]
