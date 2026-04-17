@@ -86,14 +86,12 @@ def get_eu_pipeline():
 
     try:
         # Lehen aldian, eredua deskargatu eta cachean gordetzen da.
-        stanza_dir = os.getenv('STANZA_RESOURCES_DIR') or None
-        stanza.download("eu", processors="tokenize,pos,lemma", verbose=False, dir=stanza_dir)
+        stanza.download("eu", processors="tokenize,pos,lemma", verbose=False)
         _nlp_eu = stanza.Pipeline(
             lang="eu",
             processors="tokenize,pos,lemma",
             tokenize_no_ssplit=True,
             verbose=False,
-            dir=stanza_dir,
         )
         return _nlp_eu
     except Exception as exc:

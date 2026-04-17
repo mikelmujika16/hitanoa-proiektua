@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Pre-descarga el modelo de Stanza para euskera durante la construccion de la imagen
 # Esto evita la descarga en cada arranque del contenedor
 ENV STANZA_RESOURCES_DIR=/app/stanza_resources
-RUN python -c "import stanza; stanza.download('eu', processors='tokenize,pos,lemma', dir='/app/stanza_resources', verbose=False)"
+RUN python -c "import stanza; stanza.download('eu', processors='tokenize,pos,lemma', verbose=False)"
 
 # Copia el codigo de la aplicacion
 COPY . .
