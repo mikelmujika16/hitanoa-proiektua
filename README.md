@@ -1,8 +1,8 @@
-# Hitano Itzultzailea
+# Hitano Bihurtzaile Automatikoa
 
 ## Zer da?
 
-Hitano Itzultzailea **zukako euskal testua hikara (toka eta noka)** automatikoki bihurtzen duen web aplikazioa da. Euskaltzaindiaren 14. araua (*Adizki alokutiboez, hikako moldea*) oinarri hartuta, aditz-forma alokutiboak, izenordainak eta posesiboak itzultzen ditu denbora errealean.
+Hitano Bihurtzaile Automatikoa **zukako euskal testua hikara (toka eta noka)** automatikoki bihurtzen duen web aplikazioa da. Euskaltzaindiaren 14. araua (*Adizki alokutiboez, hikako moldea*) oinarri hartuta, aditz-forma alokutiboak, izenordainak eta posesiboak itzultzen ditu denbora errealean.
 
 Gainera, **Latxa** hizkuntza-eredu handiari galderak egiteko aukera ematen du, eta erantzuna zuzenean hikan (toka/noka) jasotzen da.
 
@@ -146,7 +146,7 @@ Flask zerbitzari bat eskaintzen du honako API bidekin:
 
 ```
 hitanoa-proiektua/
-├── index.html                  # SPA — Hitano Itzultzailea (orri nagusia)
+├── index.html                  # SPA — Hitano Bihurtzaile Automatikoa (orri nagusia)
 ├── latxa.html                  # Latxa + Hika txat-orria
 ├── server.py                   # Flask web zerbitzaria eta API-ak
 ├── translator.py               # Itzulpen-motorra (HitanoTranslator)

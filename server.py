@@ -1,5 +1,5 @@
 """
-Hitano Itzultzailea - Tokiko zerbitzaria
+Hitano Bihurtzaile Automatikoa - Tokiko zerbitzaria
 Abiarazteko: python server.py
 Ondoren ireki: http://localhost:5000
 """
