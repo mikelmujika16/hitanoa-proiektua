@@ -7,14 +7,9 @@ Ondoren ireki: http://localhost:5000
 from flask import Flask, jsonify, request, send_from_directory, session, redirect, url_for
 import os
 from functools import wraps
-from typing import Any, List, Optional, Set, Tuple
+from typing import Any, List, Set
 
 from translator import HitanoTranslator
-
-try:
-    import stanza
-except Exception:
-    stanza = None
 
 try:
     from openai import OpenAI
@@ -59,8 +54,6 @@ def login_required(f):
     return decorated
 
 
-_nlp_eu = None
-_nlp_error = None
 _translator = None
 _latxa_client = None
 _latxa_model = None
@@ -73,57 +66,6 @@ def get_translator() -> HitanoTranslator:
         _translator = HitanoTranslator(project_root=OINARRI_KARPETA)
     return _translator
 
-
-def get_eu_pipeline():
-    global _nlp_eu, _nlp_error
-    if _nlp_eu is not None:
-        return _nlp_eu
-    if _nlp_error is not None:
-        raise RuntimeError(_nlp_error)
-    if stanza is None:
-        _nlp_error = "stanza ez dago instalatuta"
-        raise RuntimeError(_nlp_error)
-
-    try:
-        # Lehen aldian, eredua deskargatu eta cachean gordetzen da.
-        stanza.download("eu", processors="tokenize,pos,lemma", verbose=False)
-        _nlp_eu = stanza.Pipeline(
-            lang="eu",
-            processors="tokenize,pos,lemma",
-            tokenize_no_ssplit=True,
-            verbose=False,
-        )
-        return _nlp_eu
-    except Exception as exc:
-        _nlp_error = str(exc)
-        raise RuntimeError(_nlp_error)
-
-
-def _extract_tokens_and_zuri_positions(text: str) -> Tuple[List[dict], Set[int], Optional[str]]:
-    tokens: List[dict] = []
-    zuri_positions: Set[int] = set()
-    analysis_error: Optional[str] = None
-
-    try:
-        nlp = get_eu_pipeline()
-        doc = nlp(text)
-        for sent in doc.sentences:
-            for word in sent.words:
-                upos = (word.upos or '').upper()
-                xpos = (word.xpos or '').upper()
-                is_noun = upos in {'NOUN', 'PROPN'} or xpos in {'IZE', 'IZEN'}
-                tokens.append({
-                    'word': word.text,
-                    'lemma': word.lemma or '',
-                    'upos': upos,
-                    'xpos': xpos,
-                    'is_noun': is_noun,
-                })
-        zuri_positions = _build_zuri_color_positions(tokens)
-    except Exception as exc:
-        analysis_error = str(exc)
-
-    return tokens, zuri_positions, analysis_error
 
 
 def get_latxa_client_and_model():
@@ -224,44 +166,14 @@ def latxa_page():
     return send_from_directory(OINARRI_KARPETA, 'latxa.html')
 
 
-@app.route('/api/analyze', methods=['POST'])
-@login_required
-def analyze_text():
-    payload = request.get_json(silent=True) or {}
-    text = str(payload.get('text', '')).strip()
-    if not text:
-        return jsonify({'tokens': []})
-
-    tokens, _zuri_positions, analysis_error = _extract_tokens_and_zuri_positions(text)
-    if analysis_error:
-        return jsonify({'error': analysis_error}), 503
-
-    return jsonify({'tokens': tokens})
-
-
-def _build_zuri_color_positions(tokens: List[dict]) -> Set[int]:
-    positions: Set[int] = set()
-    for i, token in enumerate(tokens):
-        word = str(token.get('word', '')).strip().lower()
-        if word != 'zuri' or i == 0:
-            continue
-
-        prev = tokens[i - 1]
-        prev_word = str(prev.get('word', '')).strip().lower()
-        prev_lemma = str(prev.get('lemma', '')).strip().lower()
-        prev_is_noun = bool(prev.get('is_noun', False))
-
-        if prev_is_noun and prev_word and prev_word == prev_lemma:
-            positions.add(i)
-
-    return positions
-
 
 @app.route('/api/translate', methods=['POST'])
 @login_required
 def translate_text():
     payload = request.get_json(silent=True) or {}
     text = str(payload.get('text', ''))
+
+    zuri_positions: Set[int] = set()
 
     if not text.strip():
         return jsonify({
@@ -272,16 +184,14 @@ def translate_text():
             'total_forms': len(get_translator().lookup_toka),
         })
 
-    tokens, zuri_positions, analysis_error = _extract_tokens_and_zuri_positions(text)
-
     translator = get_translator()
     result = translator.translate_both_detailed(text, zuri_positions)
 
     return jsonify({
         'toka': result['toka'],
         'noka': result['noka'],
-        'tokens': tokens,
-        'analysis_error': analysis_error,
+        'tokens': [],
+        'analysis_error': None,
         'total_forms': len(translator.lookup_toka),
     })
 
@@ -294,9 +204,8 @@ def explain_translation():
     if not text:
         return jsonify({'steps': []})
 
-    _tokens, zuri_positions, _analysis_error = _extract_tokens_and_zuri_positions(text)
     translator = get_translator()
-    steps = translator.explain(text, zuri_positions)
+    steps = translator.explain(text, set())
     return jsonify({'steps': steps})
 
 
@@ -337,26 +246,19 @@ def latxa_chat():
     if not latxa_text:
         return jsonify({'error': 'Latxak ez du erantzunik itzuli.'}), 502
 
-    tokens, zuri_positions, analysis_error = _extract_tokens_and_zuri_positions(latxa_text)
-    result = get_translator().translate_both_detailed(latxa_text, zuri_positions)
+    result = get_translator().translate_both_detailed(latxa_text, set())
 
     return jsonify({
         'model': model,
         'latxa_response': latxa_text,
         'toka': result['toka'],
         'noka': result['noka'],
-        'tokens': tokens,
-        'analysis_error': analysis_error,
+        'tokens': [],
+        'analysis_error': None,
     })
 
 
 if __name__ == '__main__':
-    print("Stanza modeloa kargatzen...")
-    try:
-        get_eu_pipeline()
-        print("Prest.")
-    except RuntimeError as exc:
-        print(f"Abisua: ezin izan da Stanza kargatu ({exc})")
     port = int(os.getenv('PORT', 5000))
     print(f"Zerbitzaria abiatzen: http://localhost:{port}")
     app.run(debug=False, host='0.0.0.0', port=port)
