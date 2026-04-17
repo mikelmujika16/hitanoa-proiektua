@@ -4,8 +4,9 @@ Abiarazteko: python server.py
 Ondoren ireki: http://localhost:5000
 """
 
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, session, redirect, url_for
 import os
+from functools import wraps
 from typing import Any, List, Optional, Set, Tuple
 
 from translator import HitanoTranslator
@@ -44,6 +45,18 @@ def load_local_env(env_path: str) -> None:
 OINARRI_KARPETA = os.path.dirname(os.path.abspath(__file__))
 load_local_env(os.path.join(OINARRI_KARPETA, '.env'))
 app = Flask(__name__, static_folder=OINARRI_KARPETA, static_url_path='')
+app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-change-in-production')
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get('authenticated'):
+            if request.path.startswith('/api/'):
+                return jsonify({'error': 'Ez zaude autentifikatuta'}), 401
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated
 
 
 _nlp_eu = None
@@ -73,12 +86,14 @@ def get_eu_pipeline():
 
     try:
         # Lehen aldian, eredua deskargatu eta cachean gordetzen da.
-        stanza.download("eu", processors="tokenize,pos,lemma", verbose=False)
+        stanza_dir = os.getenv('STANZA_RESOURCES_DIR') or None
+        stanza.download("eu", processors="tokenize,pos,lemma", verbose=False, dir=stanza_dir)
         _nlp_eu = stanza.Pipeline(
             lang="eu",
             processors="tokenize,pos,lemma",
             tokenize_no_ssplit=True,
             verbose=False,
+            dir=stanza_dir,
         )
         return _nlp_eu
     except Exception as exc:
@@ -179,17 +194,40 @@ def _extract_chat_text(response: Any) -> str:
     return str(content).strip()
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if session.get('authenticated'):
+        return redirect(url_for('index'))
+    if request.method == 'POST':
+        password = request.form.get('password', '')
+        app_password = os.getenv('APP_PASSWORD', '')
+        if app_password and password == app_password:
+            session['authenticated'] = True
+            return redirect(url_for('index'))
+        return redirect(url_for('login', error=1))
+    return send_from_directory(OINARRI_KARPETA, 'login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+
 @app.route('/')
+@login_required
 def index():
     return send_from_directory(OINARRI_KARPETA, 'index.html')
 
 
 @app.route('/latxa')
+@login_required
 def latxa_page():
     return send_from_directory(OINARRI_KARPETA, 'latxa.html')
 
 
 @app.route('/api/analyze', methods=['POST'])
+@login_required
 def analyze_text():
     payload = request.get_json(silent=True) or {}
     text = str(payload.get('text', '')).strip()
@@ -222,6 +260,7 @@ def _build_zuri_color_positions(tokens: List[dict]) -> Set[int]:
 
 
 @app.route('/api/translate', methods=['POST'])
+@login_required
 def translate_text():
     payload = request.get_json(silent=True) or {}
     text = str(payload.get('text', ''))
@@ -250,6 +289,7 @@ def translate_text():
 
 
 @app.route('/api/explain', methods=['POST'])
+@login_required
 def explain_translation():
     payload = request.get_json(silent=True) or {}
     text = str(payload.get('text', '')).strip()
@@ -263,6 +303,7 @@ def explain_translation():
 
 
 @app.route('/api/latxa', methods=['POST'])
+@login_required
 def latxa_chat():
     payload = request.get_json(silent=True) or {}
     question = str(payload.get('question', '')).strip()
@@ -318,5 +359,6 @@ if __name__ == '__main__':
         print("Prest.")
     except RuntimeError as exc:
         print(f"Abisua: ezin izan da Stanza kargatu ({exc})")
-    print("Zerbitzaria abiatzen: http://localhost:5000")
-    app.run(debug=False, port=5000)
+    port = int(os.getenv('PORT', 5000))
+    print(f"Zerbitzaria abiatzen: http://localhost:{port}")
+    app.run(debug=False, host='0.0.0.0', port=port)
